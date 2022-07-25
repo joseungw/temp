@@ -14,17 +14,16 @@
 				width:600px;
 				margin:0 auto;
 				margin-top:130px;
-				border:1px solid black;
 			}
 			#title{
 				width:300px;
 				text-align:center;
 				margin:0 auto;
-				background-color:rgba(255,255,255,0.7);
 				padding:20px;
+				background-color:rgba(255,255,255,0.7);
 			}
 			#sign{
-				width:200px;
+				width:300px;
 				margin:0 auto;
 				margin-top:170px;
 				text-align:center;
@@ -48,6 +47,16 @@
 				color:black;
 				font-size:12px;
 			}
+			h1{
+				font-size:50px;
+			}
+			p{
+				font-size:25px;
+			}
+			#size{
+				height:30px;
+				font-size:15px;
+			}
 		</style>
 	</head>
 	<body>
@@ -58,8 +67,8 @@
 			<div id="sign">
 				<p><b>로그인하고 입장하기</b></p>
 				<form method="post" action="#">
-					<input type="text" name="id" placeholder="아이디"><br>
-					<input type="password" name="pw" placeholder="비밀번호">
+					<input type="text" name="id" id="size" placeholder="아이디"><br>
+					<input type="password" name="pw" id="size" placeholder="비밀번호">
 					<input type="submit" value="LOGIN"><br>
 					<a href="sign.jsp">회원가입 하기</a>
 				</form>
