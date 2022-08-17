@@ -97,7 +97,7 @@
 					<b>활동지역</b><br>
 					<select name="city" id="sel">
 						<option value="" selected>--지역--</option>
-						<option value="seuol">서울</option>
+						<option value="서울">서울</option>
 						<option value="namyang">남양주</option>
 						<option value="suwon">수원</option>
 						<option value="busan">부산</option>
@@ -112,15 +112,15 @@
 						<option value="soccer">축구</option>
 						<option value="basket">농구</option>
 						<option value="base">야구</option>
-						<option value="badmin">배드민턴</option>
+						<option value="배드민턴">배드민턴</option>
 						<option value="golf">골프</option>
 					</select><br>
-					<input type="button" value="회원가입 완료하기"id="ok" onclick="return joinCheck()">
+					<input type="submit" value="회원가입 완료하기"id="ok" onclick="return joinCheck()">
 				</form>
 			</div>
 		</div>
 		<script>
-		function joinCheck(){
+		/* function joinCheck(){
 			if(document.frm.name.value.length==0){
 				alert("이름을 입력해주세요.");
 				frm.name.focus();
@@ -177,7 +177,7 @@
 				return false;
 			}
 			return true;
-		}
+		} */
 		</script>
 	</body>
 </html>
