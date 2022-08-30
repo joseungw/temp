@@ -1,0 +1,57 @@
+회원			user		table명
+
+회원번호 /고유번호/	primary key
+이름			name
+전화번호			phone
+아이디			id
+비밀번호			password
+닉네임			nick
+지역			city
+스포츠 종목		sports
+===============================
+게시물			notice		table명
+
+게시물 고유번호/ 		primary key
+작성자아이디		userid
+작성자 닉네임		usernick
+운동종목분류		category
+게시물날짜시간		time
+제목			title
+내용			contents
+===============================
+댓글			comment		table명
+
+댓글 고유번호		primary key
+게시물 번호		postnum
+댓글작성자아이디		comid
+댓글작성자닉네임		comnick
+댓글내용			comcon
+댓글날짜시간		comdate
+댓글 참조번호		
+================================
+운동종목 추가(관리자가 운동 등록)	addsports 	
+
+create table user(num int auto_increment primary key,
+name varchar(10),
+phone varchar(20),
+id varchar(15),
+password varchar(20),
+nick varchar(10),
+date varchar(20),
+city varchar(10),
+sports varchar(10));
+
+create table notice(notenum int auto_increment primary key,
+userid varchar(15),
+usernick varchar(10),
+category varchar(10),
+notedate varchar(20),
+title text,
+contents text);
+
+create table comment(comnum int auto_increment primary key,
+postnum varchar(20),
+comid varchar(20),
+comnick varchar(10),
+comcon text,
+comdate varchar(20));
