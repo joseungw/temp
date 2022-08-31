@@ -85,6 +85,16 @@
 				text-align:center;
 				margin-top:90px;
 			}
+			#radius{
+				width:500px;
+				height:300px;
+				border:1px solid black;
+				background:url(test1.jpg);
+				display:inline-block;
+				border-radius:30px;
+				margin-left:150px;
+				margin-top:60px;
+			}
 		</style>
 	</head>
 	<body>
@@ -102,6 +112,9 @@
 					<div id="list"><a href="">골프</a></div>
 				</div>
 			</form>
+			<div id="radius">
+			
+			</div>
 			<div id="loginbox">
 				<input type="button" value="로그인" onclick="login()">
 				<p>로그인을 이용하시면<br>더욱 더 편리하게<br>이용하실 수 있습니다.</p>
