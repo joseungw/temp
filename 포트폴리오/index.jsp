@@ -65,35 +65,10 @@
 				font-size:20px;
 				color:white;
 			}
-			#loginbox{
-				width:200px;
-				border:1px solid black;
-				float:right;
-				height:400px;
-				display:inline-block;
-			}
-			#loginbox input{
-				width:150px;
-				height:50px;
-				margin-top:20px;
-				margin-left: 25px;
-				font-size:20px;
-				background-color:#0088FF;
-				color:white;
-			}
-			#loginbox p{
-				text-align:center;
-				margin-top:90px;
-			}
-			#radius{
-				width:500px;
-				height:300px;
-				border:1px solid black;
-				background:url(test1.jpg);
-				display:inline-block;
-				border-radius:30px;
-				margin-left:150px;
-				margin-top:60px;
+			#main{
+				width:100%;
+				background-color:#A9E2F3;
+				height:100px;
 			}
 		</style>
 	</head>
@@ -101,29 +76,18 @@
 		<div id="wrap">
 			<div id="logo">
 				<a href="index.jsp"><b>Sports</b></a>
-				<input id="login" type="button" value="로그인" onclick="login()">
 			</div>
-			<form method="get" action="">
-				<div id="menu">
-					<div id="list"><a href="soccer.jsp">축구</a></div>
-					<div id="list"><a href="">농구</a></div>
-					<div id="list"><a href="">야구</a></div>
-					<div id="list"><a href="">배드민턴</a></div>
-					<div id="list"><a href="">골프</a></div>
-				</div>
-			</form>
-			<div id="radius">
-			
+			<div id="menu">
+				<div id="list"><a href="soccer.jsp">축구</a></div>
+				<div id="list"><a href="">농구</a></div>
+				<div id="list"><a href="">야구</a></div>
+				<div id="list"><a href="">배드민턴</a></div>
+				<div id="list"><a href="">골프</a></div>
 			</div>
-			<div id="loginbox">
-				<input type="button" value="로그인" onclick="login()">
-				<p>로그인을 이용하시면<br>더욱 더 편리하게<br>이용하실 수 있습니다.</p>
+			<div id="main">
+				
 			</div>
 		</div>
-		<script>
-			function login(){
-				location.href="login.do";
-			}
-		</script>
+		
 	</body>
 </html>
