@@ -12,50 +12,70 @@
 			body{
 				background-color:#333333;
 			} */
+			body{
+				background-color:#99CCFF;
+				margin:0;
+			}
 			#wrap{
 				width:1000px;
 				margin:0 auto;
-				border:1px solid black;
+				background-color:white;
 			}
 			#logo{
-				font-size:40px;
+				font-size:50px;
 				text-align:center;
-				background-color:#0088FF;
 				padding:20px;
 			}
 			#logo a{
 				text-decoration:none;
-				color:white;
-			}
-			h1{
-				text-align:center;
-				font-size:40px;
-				border:1px solid black;
-			}
-			#list{
-				display:inline-block;
-				border:1px solid black;
-				width:190px;
-				height:50px;
+				color:#0088FF;
 			}
 			#menu{
 				/* background-color:#0088FF; */
-				width:100%;
-			}
-			select{
-				margin-left:250px;
-				width:300px;
-				height:30px;
 				text-align:center;
+				font-size:0;
+				padding:0;
+			}
+			#menu a{
+				background:
+				    linear-gradient(
+				      to right,
+				      rgba(100, 200, 200, 1),
+				      rgba(100, 200, 200, 1)
+				    ),
+				    linear-gradient(
+				      to right,
+				      rgba(255, 0, 0, 1),
+				      rgba(255, 0, 180, 1),
+				      rgba(0, 100, 200, 1)
+				  	);
+				background-size: 100% 3px, 0 3px;
+				background-position: 100% 100%, 0 100%;
+				background-repeat: no-repeat;
+				transition: background-size 400ms;
+			}
+			#menu a:hover{
+				background-size: 0 3px, 100% 3px;
+			}
+			#list{
+				display:inline-block;
+				width:198px;
+				height:60px;
+				line-height:60px;
+				border:1px solid #0088FF;
+				background-color:#0088FF;
+			}
+			#list a{
+				text-decoration:none;
 				font-size:20px;
-				margin-bottom:30px;
-				/* background-color:#333333; */
+				color:white;
 			}
 			#loginbox{
 				width:200px;
 				border:1px solid black;
 				float:right;
 				height:400px;
+				display:inline-block;
 			}
 			#loginbox input{
 				width:150px;
@@ -73,24 +93,14 @@
 		</style>
 	</head>
 	<body>
+		<%
+			String id=(String)session.getAttribute("id");
+		%>
 		<div id="wrap">
 			<div id="logo">
-				<a href="main.jsp"><b>Sports</b></a>
+				<a href="index.jsp"><b>Sports</b></a>
 			</div>
 			<form method="get" action="">
-				<!-- <div id="sel">
-					<select name="city" >
-						<option value="" selected>==지역 선택==</option>
-						<option value="seoul">서울</option>
-						<option value="namyang">남양주</option>
-						<option value="suwon">수원</option>
-						<option value="busan">부산</option>
-						<option value="daegu">대구</option>
-						<option value="daejun">대전</option>
-						<option value="uijeong">의정부</option>
-						<option value="incheon">인천</option>
-					</select>
-				</div> -->
 				<div id="menu">
 					<div id="list"><a href="soccer.jsp">축구</a></div>
 					<div id="list"><a href="">농구</a></div>
@@ -100,8 +110,8 @@
 				</div>
 			</form>
 			<div id="loginbox">
-				<input type="button" value="로그인" onclick="()">
-				<p>로그인 완료</p>
+				<input type="button" value="로그인" onclick="login()">
+				<p><%=id %></p>
 			</div>
 		</div>
 		<script>
