@@ -10,9 +10,9 @@ public class UserDAO {
 	public static UserDAO instance=new UserDAO();
 	
 	public static UserDAO getInstance() {
-		return instance;			//½Ì±ÛÅæ
+		return instance;			//ì‹±ê¸€í†¤
 	}
-	//Ä¿³Ø¼Ç ¿¬°á Ã³¸®¹®
+	//ì»¤ë„¥ì…˜ ì—°ê²° ì²˜ë¦¬ë¬¸
 	public Connection getConnection() throws Exception {
 		Connection conn=null;
 		String url="jdbc:mysql://127.0.0.1:3306/project";
@@ -22,7 +22,7 @@ public class UserDAO {
 		conn=DriverManager.getConnection(url,dbid,dbpw);
 		return conn;
 	}
-	//·Î±×ÀÎ ÀÎÁõ Ã³¸®
+	//ë¡œê·¸ì¸ ì¸ì¦ ì²˜ë¦¬
 	public int userCheak(String id,String password) {
 		int result=-1;
 		String sql="select password from user where id=?;";
@@ -34,14 +34,14 @@ public class UserDAO {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1,id);
 			rs=pstmt.executeQuery();
-			if(rs.next()) {	//ÇØ´ç ¾ÆÀÌµğ°¡ Á¸Àç ÇÑ´Ù¸é
-				if(rs.getString("password").equals(password)) {	//ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ ÇÑ´Ù¸é
-					result=1;	//¾ÆÀÌµğ ºñ¹Ğ¹øÈ£ ÀÏÄ¡ÇÏ´Â °æ¿ì
+			if(rs.next()) {	//í•´ë‹¹ ì•„ì´ë””ê°€ ì¡´ì¬ í•œë‹¤ë©´
+				if(rs.getString("password").equals(password) && rs.getString("password")!=null) {	//ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜ í•œë‹¤ë©´
+					result=1;	//ì•„ì´ë”” ë¹„ë°€ë²ˆí˜¸ ì¼ì¹˜í•˜ëŠ” ê²½ìš°
 				}else {
-					result=0;	//ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾ÊÀº °æ¿ì
+					result=0;	//ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•Šì€ ê²½ìš°
 				}
 			}else {
-				result=-1;		//¾ÆÀÌµğ°¡ ÀÏÄ¡ÇÏÁö ¾ÊÀº °æ¿ì
+				result=-1;		//ì•„ì´ë””ê°€ ì¼ì¹˜í•˜ì§€ ì•Šì€ ê²½ìš°
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -57,9 +57,9 @@ public class UserDAO {
 		}
 		return result;
 	}
-	//»ç¿ëÀÚ Á¤º¸ Á¶È¸
+	//ì‚¬ìš©ì ì •ë³´ ì¡°íšŒ
 	public User getUser(String id) {
-		User u=null;
+		User u=new User();
 		String sql="select * from user where id=?";
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -69,6 +69,8 @@ public class UserDAO {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs=pstmt.executeQuery();
+			rs.next();
+			u.setId(rs.getString("id"));
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
