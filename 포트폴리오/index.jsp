@@ -70,6 +70,16 @@
 				background-color:#A9E2F3;
 				height:100px;
 			}
+			#radius{
+				width:500px;
+				height:300px;
+				border:1px solid black;
+				background:url(test1.jpg);
+				display:inline-block;
+				border-radius:30px;
+				margin-left:150px;
+				margin-top:60px;
+			}
 		</style>
 	</head>
 	<body>
@@ -85,7 +95,9 @@
 				<div id="list"><a href="">골프</a></div>
 			</div>
 			<div id="main">
-				
+				<div id="radius">
+			
+				</div>
 			</div>
 		</div>
 		
