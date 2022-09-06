@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="DAO.UserDAO" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -65,17 +68,23 @@
 				font-size:20px;
 				color:white;
 			}
+			/*여기까지 header에 대한 CSS부분  */
 			#main{
 				width:100%;
 				background-color:#A9E2F3;
-				height:100px;
+			}
+			table{
+				border:3px solid black;
+			}
+			table td{
+				border:2px solid hotpink;
 			}
 		</style>
 	</head>
 	<body>
 		<div id="wrap">
 			<div id="logo">
-				<a href="index.jsp"><b>Sports</b></a>
+				<a href="main.jsp"><b>Sports</b></a>
 			</div>
 			<div id="menu">
 				<div id="list"><a href="soccer.jsp">축구</a></div>
@@ -86,19 +95,54 @@
 			</div>
 			<div id="main">
 				<input type="button" value="게시물 작성하기" onclick="post()">
-				<table>
-					<tr>
-						<th>작성자 닉네임</th>
-						<th>날짜</th>
-						<th>스포츠 종목</th>
-						<th>지역</th>
-						<th>제목</th>
-						<th>내용</th>
-					</tr>
-					<tr>
-						<td></td>
-					</tr>
-				</table>
+				<%
+					Connection conn=null;
+					Statement stmt=null;
+					ResultSet rs=null;
+					
+					String sql="select * from notice";
+					try{
+						UserDAO ud=UserDAO.getInstance();
+						conn=ud.getConnection();
+						stmt=conn.createStatement();
+						rs=stmt.executeQuery(sql);
+						
+						out.print("<table>");
+						out.print("<tr>");
+						out.print("<th>작성자</th>");
+						out.print("<th>닉네임</th>");
+						out.print("<th>날짜</th>");
+						out.print("<th>스포츠 종목</th>");
+						out.print("<th>지역</th>");
+						out.print("<th>제목</th>");
+						out.print("<th>내용</th>");
+						out.print("</tr>");
+						
+						while(rs.next()){
+							out.print("<tr>");
+							out.print("<td>"+rs.getString("userid")+"</td>");
+							out.print("<td>"+rs.getString("usernick")+"</td>");
+							out.print("<td>"+rs.getString("notedate")+"</td>");
+							out.print("<td>"+rs.getString("category")+"</td>");
+							out.print("<td>"+rs.getString("region")+"</td>");
+							out.print("<td>"+rs.getString("title")+"</td>");
+							out.print("<td>"+rs.getString("contents")+"</td>");
+							out.print("</tr>");
+						}
+						out.print("</table>");
+					}catch(Exception e){
+						out.print("축구 게시판 보여주기에서 오류 : "+e);
+					}finally{
+						try{
+							if(rs!=null)rs.close();
+							if(stmt!=null)stmt.close();
+							if(conn!=null)conn.close();
+						}catch(Exception ex){
+							out.print("축구 게시판 보여주기에서 종료중  오류 : "+ex);
+						}
+					}
+				%>
+				
 			</div>
 		</div>
 		<script>

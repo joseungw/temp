@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -95,10 +96,11 @@
 	<body>
 		<%
 			String id=(String)session.getAttribute("id");
+			String nick=(String)session.getAttribute("nick");
 		%>
 		<div id="wrap">
 			<div id="logo">
-				<a href="index.jsp"><b>Sports</b></a>
+				<a href="main.jsp"><b>Sports</b></a>
 			</div>
 			<form method="get" action="">
 				<div id="menu">
@@ -110,13 +112,24 @@
 				</div>
 			</form>
 			<div id="loginbox">
-				<input type="button" value="로그인" onclick="login()">
+				<input type="button" value="로그아웃" onclick="logout()">
 				<p><%=id %></p>
+				<p><%=nick %></p>
+				<p>${isLogin }</p>
+				<c:choose>
+					<c:when test="${isLogin==true }">
+						location.href="main.jsp";
+					</c:when>
+					<c:otherwise>
+						location.href=index.jsp;
+					</c:otherwise>
+				</c:choose>
+				
 			</div>
 		</div>
 		<script>
-			function login(){
-				location.href="login.do";
+			function logout(){
+				location.href="Logout.do";
 			}
 		</script>
 	</body>
