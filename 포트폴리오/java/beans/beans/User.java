@@ -1,6 +1,7 @@
 package beans;
 
 public class User {
+	private int num;
 	private String name;
 	private String phone;
 	private String id;
@@ -8,9 +9,18 @@ public class User {
 	private String nick;
 	private String city;
 	private String sports;
+//	public User(String name, String phone, String id, String password, String nick, String city, String sports) {
+//		
+//	}
 	
 	public String getName() {
 		return name;
+	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
 	}
 	public void setName(String name) {
 		this.name = name;
