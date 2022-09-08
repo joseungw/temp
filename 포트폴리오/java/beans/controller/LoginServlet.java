@@ -38,9 +38,10 @@ public class LoginServlet extends HttpServlet {
 		if(result==1) {
 			User u=ud.getUser(id);
 			HttpSession sess=request.getSession();
-			sess.setAttribute("id", u);
-			url="main.jsp";
-			
+			sess.setAttribute("id", u.getId());
+			sess.setAttribute("nick",u.getNick());
+			sess.setAttribute("isLogin", true);
+			url="index.jsp";
 		}else if(result==0) {
 			//비밀번호가 틀릴 경우
 			url="error.jsp";
@@ -53,7 +54,6 @@ public class LoginServlet extends HttpServlet {
 		//로그인 성공 경우 main.jsp로 이동 //아이디 비밀번호가 틀릴 경우(result가 0이나-1인경우 error.jsp를 경유하여
 		//다시 로그인 서블릿으로 돌아오는 방법**(새로고침을 눌렀을 경우 request값 초기화하기 위해서)
 		
-		System.out.println();
 		RequestDispatcher dis=request.getRequestDispatcher(url);
 		dis.forward(request, response);
 	}

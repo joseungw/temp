@@ -6,15 +6,19 @@ import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
 
-@WebServlet("/Logout.do")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/mynote.do")
+public class mynote extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doget실행");
-		HttpSession sess=request.getSession();
-		sess.invalidate();	//세션을 초기화 하는 메소드
-		RequestDispatcher dis=request.getRequestDispatcher("index.jsp");
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		String id=request.getParameter("id");
+		System.out.println("테스트   "+id);
+//		HttpSession sess=request.getSession();
+		
+		
+		RequestDispatcher dis=request.getRequestDispatcher("mynote.jsp");
 		dis.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

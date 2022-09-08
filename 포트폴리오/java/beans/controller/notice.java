@@ -14,7 +14,7 @@ public class notice extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		System.out.println("ddddddd");
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("post실행확인");
@@ -62,7 +62,8 @@ public class notice extends HttpServlet {
 				System.out.println("데이터베이스 연결 해제 중 오류 : "+ex);
 			}
 		}
-		response.sendRedirect("soccer.jsp");
+		
+		
 	}
 
 }
