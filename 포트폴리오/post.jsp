@@ -81,20 +81,20 @@
 	%>
 		<div id="wrap">
 			<div id="logo">
-				<a href="main.jsp"><b>Sports</b></a>
+				<a href="index.jsp"><b>Sports</b></a>
 			</div>
 			<div id="menu">
-				<div id="list"><a href="soccer.jsp">축구</a></div>
-				<div id="list"><a href="">농구</a></div>
-				<div id="list"><a href="">야구</a></div>
-				<div id="list"><a href="">배드민턴</a></div>
-				<div id="list"><a href="">골프</a></div>
+				<div id="list"><a href="boardmain?category=축구">축구</a></div>
+				<div id="list"><a href="boardmain?category=농구">농구</a></div>
+				<div id="list"><a href="boardmain?category=야구">야구</a></div>
+				<div id="list"><a href="boardmain?category=배드민턴">배드민턴</a></div>
+				<div id="list"><a href="boardmain?category=골프">골프</a></div>
 			</div>
 			<div id="main">
-				<form method="post" action="notice.do">
+				<form method="get" action="notice.do">
 					<select name="postSports" id="sel">
 						<option value="" selected>--스포츠 종목--</option>
-						<option value="측구">축구</option>
+						<option value="축구">축구</option>
 						<option value="농구">농구</option>
 						<option value="야구">야구</option>
 						<option value="배드민턴">배드민턴</option>
@@ -105,7 +105,7 @@
 						<option value="서울">서울</option>
 						<option value="남양주">남양주</option>
 						<option value="수원">수원</option>
-						<option value="부신">부산</option>
+						<option value="부산">부산</option>
 						<option value="대구">대구</option>
 						<option value="대전">대전</option>
 						<option value="의정부">의정부</option>

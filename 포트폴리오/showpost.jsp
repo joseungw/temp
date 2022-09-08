@@ -5,19 +5,17 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>포트폴리오 랜딩페이지</title>
+		<title>게시 글</title>
 		<style>
 			/* *{
 				color:white;
-			}
+			}*/
 			body{
-				background-color:#333333;
-			} */
 			
+			} 
 			#wrap{
 				width:1000px;
 				margin:0 auto;
-				background-color:white;
 			}
 			#logo{
 				font-size:50px;
@@ -68,41 +66,7 @@
 				font-size:20px;
 				color:white;
 			}
-			/* 여기까지 기본 헤더부분 */
-			#loginbox{
-				width:200px;
-				border:1px solid black;
-				float:right;
-				height:400px;
-				display:inline-block;
-			}
-			#loginbox input{
-				width:150px;
-				height:50px;
-				margin-top:20px;
-				margin-left: 25px;
-				font-size:20px;
-				background-color:#0088FF;
-				color:white;
-			}
-			#loginbox p{
-				text-align:center;
-			}
-			#loginbox a{
-				margin:0 auto;
-			}
-			#radius{
-				width:500px;
-				height:300px;
-				border:1px solid black;
-				background:url(test1.jpg);
-				display:inline-block;
-				border-radius:30px;
-				margin-left:150px;
-				margin-top:60px;
-			}
-			#main{
-			}
+			
 		</style>
 	</head>
 	<body>
@@ -118,36 +82,14 @@
 				<div id="list"><a href="boardmain?category=골프">골프</a></div>
 			</div>
 			<div id="main">
-				<div id="radius"></div>
-					<c:choose>
-						<c:when test="${id!=null }">
-							<div id="loginbox">
-								<input type="button" value="로그아웃" onclick="logout()">
-								
-								<p>${id }</p><br>
-								<p>${nick }님<br>환영 합니다.</p>
-								<a href="mynote.do">
-									내 게시물 보기
-									<input type="hidden" name="id" value="${id }">
-								</a>
-							</div>
-						</c:when>
-						<c:otherwise>
-							<div id="loginbox">
-								<input type="button" value="로그인" onclick="login()">
-								<p>로그인을 이용하시면<br>더욱 더 편리하게<br>이용하실 수 있습니다.</p>
-							</div>
-						</c:otherwise>
-				</c:choose>
+				<div id="post">
+					<div id="posttitle">
+						<h2>${notice.getTitle()}</h2>
+						<p>${notice.getUsernick() }</p>
+						<p>${notice.getNotedate() }</p>
+					</div>
+				</div>
 			</div>
 		</div>
-		<script>
-			function login(){
-				location.href="login.do";
-			}
-			function logout(){
-				location.href="Logout.do";
-			}
-		</script>
 	</body>
 </html>

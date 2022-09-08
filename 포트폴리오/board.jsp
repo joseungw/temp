@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="DAO.UserDAO" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -9,15 +12,13 @@
 		<style>
 			/* *{
 				color:white;
-			}
+			}*/
 			body{
-				background-color:#333333;
-			} */
 			
+			} 
 			#wrap{
 				width:1000px;
 				margin:0 auto;
-				background-color:white;
 			}
 			#logo{
 				font-size:50px;
@@ -68,40 +69,30 @@
 				font-size:20px;
 				color:white;
 			}
-			/* 여기까지 기본 헤더부분 */
-			#loginbox{
-				width:200px;
+			/*여기까지 header에 대한 CSS부분  */
+			#main{
+				width:100%;
 				border:1px solid black;
-				float:right;
-				height:400px;
-				display:inline-block;
 			}
-			#loginbox input{
-				width:150px;
-				height:50px;
-				margin-top:20px;
-				margin-left: 25px;
+			table{
+				border:3px solid black;
+				width:600px;
+			}
+			thead th{
 				font-size:20px;
-				background-color:#0088FF;
-				color:white;
 			}
-			#loginbox p{
+			tbody tr{
+				border:2px solid black;
 				text-align:center;
 			}
-			#loginbox a{
-				margin:0 auto;
+			tbody tr:hover{
+				background-color:black;
+				color:white;
 			}
-			#radius{
-				width:500px;
-				height:300px;
-				border:1px solid black;
-				background:url(test1.jpg);
-				display:inline-block;
-				border-radius:30px;
-				margin-left:150px;
-				margin-top:60px;
-			}
-			#main{
+			#sel{
+				width:400px;
+				text-align:center;
+				font-size:20px;
 			}
 		</style>
 	</head>
@@ -118,35 +109,52 @@
 				<div id="list"><a href="boardmain?category=골프">골프</a></div>
 			</div>
 			<div id="main">
-				<div id="radius"></div>
-					<c:choose>
-						<c:when test="${id!=null }">
-							<div id="loginbox">
-								<input type="button" value="로그아웃" onclick="logout()">
-								
-								<p>${id }</p><br>
-								<p>${nick }님<br>환영 합니다.</p>
-								<a href="mynote.do">
-									내 게시물 보기
-									<input type="hidden" name="id" value="${id }">
-								</a>
-							</div>
-						</c:when>
-						<c:otherwise>
-							<div id="loginbox">
-								<input type="button" value="로그인" onclick="login()">
-								<p>로그인을 이용하시면<br>더욱 더 편리하게<br>이용하실 수 있습니다.</p>
-							</div>
-						</c:otherwise>
-				</c:choose>
+				<form method="get" action="boardregion.do?region=">
+					<select name="region" id="sel">
+						<option value="" selected>--지역--</option>
+						<option value="서울">서울</option>
+						<option value="남양주">남양주</option>
+						<option value="수원">수원</option>
+						<option value="부산">부산</option>
+						<option value="대구">대구</option>
+						<option value="대전">대전</option>
+						<option value="의정부">의정부</option>
+						<option value="인천">인천</option>
+					</select>
+					<input type="submit" value="검색">
+				</form>
+				<br>
+				<input type="button" value="게시물 작성하기" onclick="post()">
+				<table>
+					<thead>
+						<tr>
+							<th>날짜</th>
+							<th>닉네임</th>
+							<th>제목</th>
+							<th>카테고리</th>
+							<th>지역</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${list }" var="list">	
+							<tr  onclick="href=showpost('${list.getNotenum() }')">
+								<td class="post1">${list.getNotedate() }</td>
+								<td class="post2">${list.getUsernick() }</td>
+								<td class="post3">${list.getTitle() }</td>
+								<td class="post4">${list.getCategory() }</td>
+								<td class="post5">${list.getRegion() }</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
 		<script>
-			function login(){
-				location.href="login.do";
+			function post(){
+				location.href="post.jsp";
 			}
-			function logout(){
-				location.href="Logout.do";
+			function showpost(num){
+				location.href="showpost?notenum="+num;
 			}
 		</script>
 	</body>
