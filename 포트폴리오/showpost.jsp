@@ -66,7 +66,12 @@
 				font-size:20px;
 				color:white;
 			}
-			
+			#post a{
+				text-decoration:none;
+				background-color:red;
+				color:white;
+				border:2px solid blue;
+			}
 		</style>
 	</head>
 	<body>
@@ -83,13 +88,22 @@
 			</div>
 			<div id="main">
 				<div id="post">
+					<a href="noticeUpdate">게시물 수정</a>
+					<a href="noticeDelete">게시물 삭제</a>
 					<div id="posttitle">
 						<h2>${notice.getTitle()}</h2>
 						<p>${notice.getUsernick() }</p>
 						<p>${notice.getNotedate() }</p>
+						<p>${notice.getContents() }</p>
+						<p>${notice.getNotenum() }</p>
 					</div>
 				</div>
 			</div>
 		</div>
+		<script>
+			function noteDel(notenum){
+				location.href="noticeDelete?notenum="+notenum;
+			}
+		</script>
 	</body>
 </html>

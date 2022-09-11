@@ -98,29 +98,29 @@
 					<select name="city" id="sel">
 						<option value="" selected>--지역--</option>
 						<option value="서울">서울</option>
-						<option value="namyang">남양주</option>
-						<option value="suwon">수원</option>
-						<option value="busan">부산</option>
-						<option value="daegu">대구</option>
-						<option value="daejun">대전</option>
-						<option value="uijeong">의정부</option>
-						<option value="incheon">인천</option>
+						<option value="남양주">남양주</option>
+						<option value="수원">수원</option>
+						<option value="부산">부산</option>
+						<option value="대구">대구</option>
+						<option value="대전">대전</option>
+						<option value="의정부">의정부</option>
+						<option value="인천">인천</option>
 					</select><br>
 					<b>스포츠 종목</b><br>
 					<select name="sports" id="sel">
 						<option value="" selected>--스포츠 종목--</option>
-						<option value="soccer">축구</option>
-						<option value="basket">농구</option>
-						<option value="base">야구</option>
+						<option value="축구">축구</option>
+						<option value="농구">농구</option>
+						<option value="야구">야구</option>
 						<option value="배드민턴">배드민턴</option>
-						<option value="golf">골프</option>
+						<option value="골프">골프</option>
 					</select><br>
 					<input type="submit" value="회원가입 완료하기"id="ok" onclick="return joinCheck()">
 				</form>
 			</div>
 		</div>
 		<script>
-		/* function joinCheck(){
+		function joinCheck(){
 			if(document.frm.name.value.length==0){
 				alert("이름을 입력해주세요.");
 				frm.name.focus();
@@ -177,7 +177,7 @@
 				return false;
 			}
 			return true;
-		} */
+		}
 		</script>
 	</body>
 </html>
