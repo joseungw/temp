@@ -14,14 +14,11 @@ public class notice extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("ddddddd");
-	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("postΩ««‡»Æ¿Œ");
+		System.out.println("postÏã§ÌñâÌôïÏù∏");
 		request.setCharacterEncoding("utf-8");
 		String userid=request.getParameter("userid");
 		String usernick=request.getParameter("usernick");
-		String category=request.getParameter("postSports");
+		String category=request.getParameter("category");
 		Calendar now = Calendar.getInstance();
 		int year=now.get(Calendar.YEAR);
 		int month=now.get(Calendar.MONTH)+1;
@@ -53,16 +50,19 @@ public class notice extends HttpServlet {
 			pstmt.executeUpdate();
 			
 		}catch(Exception e) {
-			System.out.println("µ•¿Ã≈Õ∫£¿ÃΩ∫ ø¨∞· ¡ﬂ ø¿∑˘ : "+e);
+			System.out.println("Îç∞Ïù¥ÌÑ∞Î≤†Ïù¥Ïä§ Ïó∞Í≤∞ Ï§ë Ïò§Î•ò : "+e);
 		}finally {
 			try {
 				if(pstmt!=null)pstmt.close();
 				if(conn!=null)conn.close();
 			}catch(Exception ex) {
-				System.out.println("µ•¿Ã≈Õ∫£¿ÃΩ∫ ø¨∞· «ÿ¡¶ ¡ﬂ ø¿∑˘ : "+ex);
+				System.out.println("Îç∞Ïù¥ÌÑ∞Î≤†Ïù¥Ïä§ Ïó∞Í≤∞ Ìï¥Ï†ú Ï§ë Ïò§Î•ò : "+ex);
 			}
 		}
-		
+		RequestDispatcher dis=request.getRequestDispatcher("boardmain");
+		dis.forward(request, response);
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	}
 
