@@ -16,7 +16,7 @@ public class boardmain extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		String category=request.getParameter("category");	//°ª È®ÀÎ
+		String category=request.getParameter("category");	
 		System.out.println(category);
 		
 		Connection conn=null;
