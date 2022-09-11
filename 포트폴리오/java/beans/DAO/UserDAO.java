@@ -13,9 +13,9 @@ public class UserDAO {
 	public static UserDAO instance=new UserDAO();
 	
 	public static UserDAO getInstance() {
-		return instance;			//½Ì±ÛÅæ
+		return instance;			//ì‹±ê¸€í†¤
 	}
-	//Ä¿³Ø¼Ç ¿¬°á Ã³¸®¹®
+	//ì»¤ë„¥ì…˜ ì—°ê²° ì²˜ë¦¬ë¬¸
 	public Connection getConnection() throws Exception {
 		Connection conn=null;
 		String url="jdbc:mysql://127.0.0.1:3306/project";
@@ -25,7 +25,7 @@ public class UserDAO {
 		conn=DriverManager.getConnection(url,dbid,dbpw);
 		return conn;
 	}
-	//·Î±×ÀÎ ÀÎÁõ Ã³¸®
+	//ë¡œê·¸ì¸ ì¸ì¦ ì²˜ë¦¬
 	public int userCheak(String id,String password) {
 		int result=-1;
 		String sql="select password from user where id=?;";
@@ -37,14 +37,14 @@ public class UserDAO {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1,id);
 			rs=pstmt.executeQuery();
-			if(rs.next()) {	//ÇØ´ç ¾ÆÀÌµğ°¡ Á¸Àç ÇÑ´Ù¸é
-				if(rs.getString("password").equals(password) && rs.getString("password")!=null) {	//ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ ÇÑ´Ù¸é
-					result=1;	//¾ÆÀÌµğ ºñ¹Ğ¹øÈ£ ÀÏÄ¡ÇÏ´Â °æ¿ì
+			if(rs.next()) {	//í•´ë‹¹ ì•„ì´ë””ê°€ ì¡´ì¬ í•œë‹¤ë©´
+				if(rs.getString("password").equals(password) && rs.getString("password")!=null) {	//ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜ í•œë‹¤ë©´
+					result=1;	//ì•„ì´ë”” ë¹„ë°€ë²ˆí˜¸ ì¼ì¹˜í•˜ëŠ” ê²½ìš°
 				}else {
-					result=0;	//ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾ÊÀº °æ¿ì
+					result=0;	//ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•Šì€ ê²½ìš°
 				}
 			}else {
-				result=-1;		//¾ÆÀÌµğ°¡ ÀÏÄ¡ÇÏÁö ¾ÊÀº °æ¿ì
+				result=-1;		//ì•„ì´ë””ê°€ ì¼ì¹˜í•˜ì§€ ì•Šì€ ê²½ìš°
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -60,7 +60,7 @@ public class UserDAO {
 		}
 		return result;
 	}
-	//»ç¿ëÀÚ Á¤º¸ Á¶È¸
+	//ì‚¬ìš©ì ì •ë³´ ì¡°íšŒ
 	public User getUser(String id) {
 		User u=new User();
 		String sql="select * from user where id=?";
@@ -88,7 +88,7 @@ public class UserDAO {
 		}
 		return u;
 	}
-	//°Ô½ÃÆÇ Ä«Å×°í¸®·Î ºĞ·ù ÇØ¼­ º¸¿©ÁÖ±â ºÎºĞ
+	//ê²Œì‹œíŒ ì¹´í…Œê³ ë¦¬ë¡œ ë¶„ë¥˜ í•´ì„œ ë³´ì—¬ì£¼ê¸° ë¶€ë¶„
 	public ArrayList<Notice> getNotiCate(String category) {
 		ArrayList<Notice> list=new ArrayList<Notice>();
 		Notice nt=null;
@@ -128,4 +128,54 @@ public class UserDAO {
 		}
 		return list;
 	}
+	//ê²Œì‹œë¬¼ ì—…ë°ì´íŠ¸ ê¸°ëŠ¥
+	public void noticeUpdate(Notice notice) {
+		String sql="update notice set category=?, notedate=?, ";
+		sql+="title=?, contents=?, region=? where notenum=?";
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, notice.getCategory());
+			pstmt.setString(2, notice.getNotedate());
+			pstmt.setString(3, notice.getTitle());
+			pstmt.setString(4, notice.getContents());
+			pstmt.setString(5, notice.getRegion());
+			pstmt.setInt(6, notice.getNotenum());
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+	//ê²Œì‹œë¬¼ ì‚­ì œí•˜ëŠ” ê¸°ëŠ¥
+	public void noticeDelete(String notenum) {
+		String sql="delete from notice where notenum=?";
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, notenum);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+	
+	
 }
