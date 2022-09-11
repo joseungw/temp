@@ -51,6 +51,8 @@
 					out.print("<h1>register.jsp에서 데이터베이스 종료 중 오류 발생 : "+ex+"</h1>");
 				}
 			}
+			RequestDispatcher dis=request.getRequestDispatcher("login.jsp");
+			dis.forward(request, response);
 		%>
 		
 	</body>
