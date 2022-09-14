@@ -16,7 +16,7 @@ public class boardmain extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		String category=request.getParameter("category");	
+		String category=request.getParameter("category");	//°ª È®ÀÎ
 		System.out.println(category);
 		
 		Connection conn=null;
@@ -27,7 +27,7 @@ public class boardmain extends HttpServlet {
 		
 		ArrayList<Notice> list=ud.getNotiCate(category);
 		
-		
+		request.setAttribute("category", category);
 		request.setAttribute("list", list);
 		RequestDispatcher dis=request.getRequestDispatcher("board.jsp");
 		dis.forward(request, response);
