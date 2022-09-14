@@ -130,6 +130,47 @@ public class UserDAO {
 		}
 		return list;
 	}
+	//게시판 지역과 카테로리로 분류 해서 보여주기 부분
+		public ArrayList<Notice> selectTwo(String category,String region) {
+			ArrayList<Notice> list=new ArrayList<Notice>();
+			Notice nt=null;
+			String sql="select * from Notice where category=? and region=?";
+			
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			
+			try {
+				conn=getConnection();
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, category);
+				pstmt.setString(2, region);
+				rs=pstmt.executeQuery();
+				while(rs.next()) {
+					nt=new Notice();
+					nt.setNotenum(rs.getInt("notenum"));
+					nt.setUserid(rs.getString("userid"));
+					nt.setUsernick(rs.getString("usernick"));
+					nt.setCategory(rs.getString("category"));
+					nt.setNotedate(rs.getString("notedate"));
+					nt.setTitle(rs.getString("title"));
+					nt.setContents(rs.getString("contents"));
+					nt.setRegion(rs.getString("region"));
+					list.add(nt);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					if(rs!=null)rs.close();
+					if(pstmt!=null)pstmt.close();
+					if(conn!=null)conn.close();
+				}catch(Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			return list;
+		}
 	//게시물 업데이트 기능
 	public void noticeUpdate(Notice notice) {
 		String sql="update notice set category=?, notedate=?, ";
@@ -214,6 +255,7 @@ public class UserDAO {
 		}
 		return notice;
 	}
+	
 	
 	
 }
