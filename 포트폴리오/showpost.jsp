@@ -32,26 +32,8 @@
 				font-size:0;
 				padding:0;
 			}
-			#menu a{
-				background:
-				    linear-gradient(
-				      to right,
-				      rgba(100, 200, 200, 1),
-				      rgba(100, 200, 200, 1)
-				    ),
-				    linear-gradient(
-				      to right,
-				      rgba(255, 0, 0, 1),
-				      rgba(255, 0, 180, 1),
-				      rgba(0, 100, 200, 1)
-				  	);
-				background-size: 100% 3px, 0 3px;
-				background-position: 100% 100%, 0 100%;
-				background-repeat: no-repeat;
-				transition: background-size 400ms;
-			}
 			#menu a:hover{
-				background-size: 0 3px, 100% 3px;
+				border-bottom:3px solid white;
 			}
 			#list{
 				display:inline-block;
@@ -65,16 +47,58 @@
 				text-decoration:none;
 				font-size:20px;
 				color:white;
+				font-weight:bold;
 			}
-			#post a{
-				text-decoration:none;
-				background-color:red;
-				color:white;
-				border:2px solid blue;
+			/* 여기까지 상단 리스트 부분 */
+			
+			#postTop{
+				border-bottom:1px solid #0088FF;
+				padding-left:50px;
+				
 			}
+			#postTop h2{
+				display:inline-block;
+				font-size:25px;
+				margin:15px;
+			}
+			#postTitle{
+				border-bottom:1px solid #3399FF;
+				padding-left:65px;
+				padding-right:65px;
+			}
+			#postTitle h2{
+				font-size:22px;
+				padding:0;
+				margin:0;
+				margin-top:12px;
+				margin-bottom:5px;
+			}
+			#postTitle p{
+				display:inline-block;
+				font-size:14px;
+				margin:0;
+				margin-bottom:12px;
+			}
+			#postMain{
+				padding:25px 65px 25px 65px;
+   				padding-top: 25px;
+   				border-bottom:1px solid #3399FF;
+   				height:250px;
+			}
+			#line{
+				font-weight:900;
+			}
+			/* 여기까지 게시판 메인부분 */
 		</style>
 	</head>
 	<body>
+		<%
+			String id=null;
+			if(session.getAttribute("id")!=null){
+				id=(String)session.getAttribute("id");
+				
+			}
+		%>
 		<div id="wrap">
 			<div id="logo">
 				<a href="index.jsp"><b>Sports</b></a>
@@ -87,23 +111,43 @@
 				<div id="list"><a href="boardmain?category=골프">골프</a></div>
 			</div>
 			<div id="main">
-				<div id="post">
-					<a href="noticeUpdate">게시물 수정</a>
-					<a href="noticeDelete">게시물 삭제</a>
-					<div id="posttitle">
-						<h2>${notice.getTitle()}</h2>
-						<p>${notice.getUsernick() }</p>
-						<p>${notice.getNotedate() }</p>
-						<p>${notice.getContents() }</p>
-						<p>${notice.getNotenum() }</p>
-					</div>
+				<div id="postTop">
+					<h2>
+						${notice.getCategory() }   <span id="line">│</span>   ${notice.getRegion() }
+					</h2>
+					<c:choose>
+						<c:when test="${notice.getUserid() eq id }">
+							<a href="noticeUpdate?notenum=${notice.getNotenum() }">게시물 수정</a>
+							<a href="noticeDelete?notenum=${notice.getNotenum() }&category=${notice.getCategory()}">게시물 삭제</a>
+						</c:when>
+					</c:choose>
+				</div>
+				<div id="postTitle">
+					<h2>${notice.getTitle()}</h2>
+					<p>${notice.getUsernick() }   <span id="line">│</span>   ${notice.getNotedate() }</p>
+				</div>
+				<div id="postMain">
+					<p>${notice.getContents() }</p>
+				</div>
+				<div id="comm">
+					<form method="get" action="comment">
+						<p>댓글</p>
+						
+						
+						
+						<c:forEach items="${cmt }" var="cmt">
+							${cmt.getComid() }
+							${cmt.getPostnum() }
+						</c:forEach>
+						<textarea name="comcon" placeholder="댓글을 입력해주세요."></textarea>
+						<input type="hidden" name="notenum" value="${notice.getNotenum() }"> 
+						<input type="submit" value="등록">
+					</form>
 				</div>
 			</div>
 		</div>
 		<script>
-			function noteDel(notenum){
-				location.href="noticeDelete?notenum="+notenum;
-			}
+			
 		</script>
 	</body>
 </html>

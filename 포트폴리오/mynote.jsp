@@ -36,26 +36,8 @@
 				font-size:0;
 				padding:0;
 			}
-			#menu a{
-				background:
-				    linear-gradient(
-				      to right,
-				      rgba(100, 200, 200, 1),
-				      rgba(100, 200, 200, 1)
-				    ),
-				    linear-gradient(
-				      to right,
-				      rgba(255, 0, 0, 1),
-				      rgba(255, 0, 180, 1),
-				      rgba(0, 100, 200, 1)
-				  	);
-				background-size: 100% 3px, 0 3px;
-				background-position: 100% 100%, 0 100%;
-				background-repeat: no-repeat;
-				transition: background-size 400ms;
-			}
 			#menu a:hover{
-				background-size: 0 3px, 100% 3px;
+				border-bottom:3px solid white;
 			}
 			#list{
 				display:inline-block;
@@ -69,6 +51,7 @@
 				text-decoration:none;
 				font-size:20px;
 				color:white;
+				
 			}
 			#main{
 				width:100%;

@@ -35,26 +35,9 @@
 				font-size:0;
 				padding:0;
 			}
-			#menu a{
-				background:
-				    linear-gradient(
-				      to right,
-				      rgba(100, 200, 200, 1),
-				      rgba(100, 200, 200, 1)
-				    ),
-				    linear-gradient(
-				      to right,
-				      rgba(255, 0, 0, 1),
-				      rgba(255, 0, 180, 1),
-				      rgba(0, 100, 200, 1)
-				  	);
-				background-size: 100% 3px, 0 3px;
-				background-position: 100% 100%, 0 100%;
-				background-repeat: no-repeat;
-				transition: background-size 400ms;
-			}
+			
 			#menu a:hover{
-				background-size: 0 3px, 100% 3px;
+				border-bottom:3px solid white;
 			}
 			#list{
 				display:inline-block;
@@ -68,35 +51,79 @@
 				text-decoration:none;
 				font-size:20px;
 				color:white;
+				font-weight:bold;
 			}
 			/*여기까지 header에 대한 CSS부분  */
 			#main{
 				width:100%;
-				border:1px solid black;
 			}
 			table{
-				border:3px solid black;
-				width:600px;
+				border:3px solid #0088FF;
+				width:100%;
+				margin:0 auto;
+				border-collapse:collapse;
 			}
 			thead th{
 				font-size:20px;
-			}
-			tbody tr{
-				border:2px solid black;
-				text-align:center;
-			}
-			tbody tr:hover{
-				background-color:black;
+				background-color:#0088FF;
 				color:white;
 			}
+			tbody tr{
+				text-align:center;
+				border-bottom:2px solid white;
+			}
+			tbody tr:hover{
+				border-bottom:2px solid #0088FF;
+			}
 			#sel{
-				width:400px;
 				text-align:center;
 				font-size:20px;
+				border: 2px solid #0088FF;
+			    width: 300px;
 			}
+			input[type=submit]{
+				border: 2px solid #0088FF;
+			    padding: 3px;
+			    width: 70px;
+			    margin-left: 15px;
+			    padding-top: 4px;
+    			padding-bottom: 2px;
+			}
+			table td{
+				padding:10px;
+				margin:5px;
+			}
+			.post3{
+				width:140px;
+			}
+			.post1{
+				width:120px;
+			}
+			#postit{
+				background-color:white;
+				border:2px solid black;
+				color:#0033FF;
+				padding:3px;
+				font-weight:bold;
+			}
+			#postit:hover{
+				background-color:#0088FF;
+				color:white;
+				border:2px solid black;
+			}
+			/* 
+				margin-left: 348px;
+    			margin-top: 30px;
+			 */
 		</style>
 	</head>
 	<body>
+		<%
+			String id=null;
+			if(session.getAttribute("id")!=null){
+				id=(String)session.getAttribute("id");
+			}
+		%>
 		<div id="wrap">
 			<div id="logo">
 				<a href="index.jsp"><b>Sports</b></a>
@@ -109,40 +136,44 @@
 				<div id="list"><a href="boardmain?category=골프">골프</a></div>
 			</div>
 			<div id="main">
-				<form method="get" action="boardregion.do?region=">
-					<select name="region" id="sel">
-						<option value="" selected>--지역--</option>
-						<option value="서울">서울</option>
-						<option value="남양주">남양주</option>
-						<option value="수원">수원</option>
-						<option value="부산">부산</option>
-						<option value="대구">대구</option>
-						<option value="대전">대전</option>
-						<option value="의정부">의정부</option>
-						<option value="인천">인천</option>
-					</select>
-					<input type="submit" value="검색">
-				</form>
-				<br>
-				<input type="button" value="게시물 작성하기" onclick="post()">
+				<div id="boardmenu">
+					<form method="get" action="boardregion.do?category=축구">
+						<select name="region" id="sel">
+							<option value="" selected>--지역--</option>
+							<option value="서울">서울</option>
+							<option value="남양주">남양주</option>
+							<option value="수원">수원</option>
+							<option value="부산">부산</option>
+							<option value="대구">대구</option>
+							<option value="대전">대전</option>
+							<option value="의정부">의정부</option>
+							<option value="인천">인천</option>
+						</select>
+						<input type="hidden" name="category" value="${category }">
+						<input type="hidden" name="sports" value="${sports }">
+						<input type="submit" value="검색">
+					</form>
+					<br>
+					<input id="postit" type="button" value="게시물 작성" onclick="post()">
+				</div>
 				<table>
 					<thead>
 						<tr>
-							<th>날짜</th>
-							<th>닉네임</th>
-							<th>제목</th>
 							<th>카테고리</th>
 							<th>지역</th>
+							<th>제목</th>
+							<th>닉네임</th>
+							<th>날짜</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${list }" var="list">	
-							<tr  onclick="href=showpost('${list.getNotenum() }')">
-								<td class="post1">${list.getNotedate() }</td>
-								<td class="post2">${list.getUsernick() }</td>
-								<td class="post3">${list.getTitle() }</td>
-								<td class="post4">${list.getCategory() }</td>
-								<td class="post5">${list.getRegion() }</td>
+							<tr onclick="href=showpost('${list.getNotenum() }')">
+								<td class="post1">${list.getCategory() }</td>
+								<td class="post1">${list.getRegion() }</td>
+								<td class="post2">${list.getTitle() }</td>
+								<td class="post1">${list.getUsernick() }</td>
+								<td class="post3">${list.getNotedate() }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -151,7 +182,12 @@
 		</div>
 		<script>
 			function post(){
-				location.href="post.jsp";
+				if(<%=id ==null%>){
+					alert("로그인 후 이용해주세요.");
+				}
+				else{
+					location.href="post.jsp";
+				}
 			}
 			function showpost(num){
 				location.href="showpost?notenum="+num;

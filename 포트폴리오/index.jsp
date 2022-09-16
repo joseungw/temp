@@ -34,26 +34,8 @@
 				font-size:0;
 				padding:0;
 			}
-			#menu a{
-				background:
-				    linear-gradient(
-				      to right,
-				      rgba(100, 200, 200, 1),
-				      rgba(100, 200, 200, 1)
-				    ),
-				    linear-gradient(
-				      to right,
-				      rgba(255, 0, 0, 1),
-				      rgba(255, 0, 180, 1),
-				      rgba(0, 100, 200, 1)
-				  	);
-				background-size: 100% 3px, 0 3px;
-				background-position: 100% 100%, 0 100%;
-				background-repeat: no-repeat;
-				transition: background-size 400ms;
-			}
 			#menu a:hover{
-				background-size: 0 3px, 100% 3px;
+				border-bottom:3px solid white;
 			}
 			#list{
 				display:inline-block;
@@ -67,23 +49,29 @@
 				text-decoration:none;
 				font-size:20px;
 				color:white;
+				font-weight:bold;
 			}
 			/* 여기까지 기본 헤더부분 */
 			#loginbox{
 				width:200px;
-				border:1px solid black;
+				border:1px solid #0088FF;
 				float:right;
-				height:400px;
 				display:inline-block;
 			}
 			#loginbox input{
-				width:150px;
-				height:50px;
+				width:120px;
+				height:40px;
 				margin-top:20px;
-				margin-left: 25px;
+				margin-left: 40px;
 				font-size:20px;
 				background-color:#0088FF;
 				color:white;
+				font-weight:bold;
+			}
+			#loginbox input:hover{
+				background-color:white;
+				color:#0088FF;
+				font-weight:bold;
 			}
 			#loginbox p{
 				text-align:center;
@@ -106,6 +94,9 @@
 		</style>
 	</head>
 	<body>
+		<%
+			String category=(String)session.getAttribute("sports");
+		%>
 		<div id="wrap">
 			<div id="logo">
 				<a href="index.jsp"><b>Sports</b></a>
@@ -118,18 +109,20 @@
 				<div id="list"><a href="boardmain?category=골프">골프</a></div>
 			</div>
 			<div id="main">
-				<div id="radius"></div>
+				<div id="radius">
+					
+				</div>
 					<c:choose>
 						<c:when test="${id!=null }">
 							<div id="loginbox">
 								<input type="button" value="로그아웃" onclick="logout()">
 								
-								<p>${id }</p><br>
-								<p>${nick }님<br>환영 합니다.</p>
-								<a href="mynote.do">
+								<p>${id } 님<br>환영합니다.</p>
+								<a href="mynote.do?id=${id }&sports=${sports }">
 									내 게시물 보기
-									<input type="hidden" name="id" value="${id }">
-								</a>
+								</a><br>
+								<a href="">내 정보 수정</a><br>
+								<a href="">정보에 맞는 게시물 보기</a>
 							</div>
 						</c:when>
 						<c:otherwise>

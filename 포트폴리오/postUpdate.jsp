@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>포트폴리오 랜딩페이지</title>
+		<title>Insert title here</title>
 		<style>
 			/* *{
 				color:white;
@@ -12,9 +12,11 @@
 			body{
 				background-color:#333333;
 			} */
+			
 			#wrap{
 				width:1000px;
 				margin:0 auto;
+				background-color:white;
 			}
 			#logo{
 				font-size:50px;
@@ -48,10 +50,8 @@
 				color:white;
 				font-weight:bold;
 			}
-			/* 여기까지 메인메뉴 부분 */
-			#main{
-				width:100%;
-			}
+			/* 여기까지 상단 리스트 부분 */
+			
 			#postTop{
 				border-bottom:1px solid #0088FF;
 				padding-left:50px;
@@ -72,14 +72,9 @@
 				border:2px solid #0088FF;
 				font-size:20px;
 				padding:10px;
+				width:10%;
 				margin-bottom: 20px;
 				margin-top: 20px;
-			}
-			#sel1{
-				width:16%;
-			}
-			#sel2{
-				width:12%;
 			}
 			#postTitle input{
 				border:2px solid #0088FF;
@@ -100,9 +95,9 @@
 				border:2px solid #0088FF;
 				background-color:white;
 				color:#0088FF;
-				padding: 8px;
-   				width: 90px;
-			    margin-left: 453px;
+				padding: 7px;
+				width: 86px;
+			    margin-left: 465px;
 			    margin-top: 35px;
 			}
 			input[type=submit]:hover{
@@ -110,17 +105,11 @@
 				color:white;
 				border:2px solid black;
 			}
-			/* 여기까지 메인부분 */
+			/* 여기까지 게시판 메인부분 */
 		</style>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	</head>
 	<body>
-	<%
-		String id=null;
-		if(session.getAttribute("id")!=null){
-			id=(String)session.getAttribute("id");
-		}
-		String nick=(String)session.getAttribute("nick");
-	%>
 		<div id="wrap">
 			<div id="logo">
 				<a href="index.jsp"><b>Sports</b></a>
@@ -133,10 +122,12 @@
 				<div id="list"><a href="boardmain?category=골프">골프</a></div>
 			</div>
 			<div id="main">
-				<form method="get" action="notice.do">
+				<form method="post" action="noticeUpdate">
 					<div id="postTop">
+					<input type="hidden" name="notenum" value="${notice.getNotenum() }">
+					<input type="hidden" name="notedate" value="${notice.getNotedate() }">
+					<input type="hidden" id="sports" value="${notice.getCategory() }">
 						<select name="category" id="sel1">
-							<option value="" selected>--카테고리--</option>
 							<option value="축구">축구</option>
 							<option value="농구">농구</option>
 							<option value="야구">야구</option>
@@ -144,8 +135,8 @@
 							<option value="골프">골프</option>
 						</select>
 						<h2>│</h2>
+						<input type="hidden" id="city" value="${notice.getRegion() }">
 						<select name="region" id="sel2">
-							<option value="" selected>--지역--</option>
 							<option value="서울">서울</option>
 							<option value="남양주">남양주</option>
 							<option value="수원">수원</option>
@@ -157,41 +148,26 @@
 						</select>
 					</div>
 					<div id="postTitle">
-						<input type="hidden" name="userid" value="<%=id %>">
-						<input type="hidden" name="usernick" value="<%=nick %>">
-						<input type="text" id="tit" name="title" placeholder="제목을 입력해주세요.">
+						<input type="text" name="title" value="${notice.getTitle() }">
 					</div>
 					<div id="postMain">
-						<textarea name="contents" id="con" placeholder="내용을 입력해주세요.">${notice.getContents() }</textarea>
+						<textarea name="contents" placeholder="내용을 입력해주세요.">${notice.getContents() }</textarea>
 					</div>
-					<input type="submit" value="게시물 등록" onclick="return postok()">
+					<input type="submit" value="수정하기">
 				</form>
 			</div>
 		</div>
 		<script>
-			function postok(){
-				if(document.getElementById("sel1").value==""){
-					alert("카테고리를 선택해주세요.");
-					document.getElementById("sel1").focus();
-					return false;
+			$("#sel1 option").each(function(){
+				if(this.value==$("#sports").val()){
+					this.selected=true;
 				}
-				else if(document.getElementById("sel2").value==""){
-					alert("지역을 선택해주세요.");
-					document.getElementById("sel2").focus();
-					return false;
+			});
+			$("sel2 option").each(function(){
+				if(this.value==$("#city").val()){
+					this.selected=true;
 				}
-				if(document.getElementById("tit").value==""){
-					alert("제목을 입력해 주세요.");
-					document.getElementById("tit").focus();
-					return false;
-				}
-				if(document.getElementById("con").value==""){
-					alert("내용을 입력해 주세요.");
-					document.getElementById("con").focus();
-					return false;
-				}
-				return true;
-			}
+			});
 		</script>
 	</body>
 </html>
