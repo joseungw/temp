@@ -6,6 +6,7 @@ import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 import java.util.*;
 import DAO.UserDAO;
+import beans.Comment;
 import beans.Notice;
 
 import java.sql.*;
@@ -17,6 +18,7 @@ public class showpost extends HttpServlet {
      
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		String notenum=request.getParameter("notenum");
 		String sql="select * from notice where notenum=?";
 		Notice notice=new Notice();
@@ -24,6 +26,9 @@ public class showpost extends HttpServlet {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		UserDAO ud=UserDAO.getInstance();
+		
+		ArrayList<Comment> cmtlist=ud.selCom(notenum);
+		
 		try {
 			conn=ud.getConnection();
 			pstmt=conn.prepareStatement(sql);
@@ -51,6 +56,7 @@ public class showpost extends HttpServlet {
 			}
 		}
 		request.setAttribute("notice",notice);
+		request.setAttribute("cmt", cmtlist);
 		RequestDispatcher dis=request.getRequestDispatcher("showpost.jsp");
 		dis.forward(request, response);
 	}

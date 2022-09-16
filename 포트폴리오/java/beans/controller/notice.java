@@ -14,11 +14,10 @@ public class notice extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("post실행확인");
 		request.setCharacterEncoding("utf-8");
 		String userid=request.getParameter("userid");
 		String usernick=request.getParameter("usernick");
-		String category=request.getParameter("postSports");
+		String category=request.getParameter("category");
 		Calendar now = Calendar.getInstance();
 		int year=now.get(Calendar.YEAR);
 		int month=now.get(Calendar.MONTH)+1;
@@ -59,6 +58,7 @@ public class notice extends HttpServlet {
 				System.out.println("데이터베이스 연결 해제 중 오류 : "+ex);
 			}
 		}
+		//request.setAttribute("category", category);
 		RequestDispatcher dis=request.getRequestDispatcher("boardmain?category="+category);
 		dis.forward(request, response);
 	}

@@ -18,7 +18,9 @@ public class boardmain extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		String category=request.getParameter("category");	//°ª È®ÀÎ
 		System.out.println(category);
-		
+//		if(request.getAttribute("category")!=null) {
+//			category=(String)request.getAttribute("category");
+//		}
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -33,7 +35,7 @@ public class boardmain extends HttpServlet {
 		dis.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		this.doGet(request, response);
 	}
 
 }

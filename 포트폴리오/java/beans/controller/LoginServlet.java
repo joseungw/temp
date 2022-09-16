@@ -23,7 +23,7 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url="login.jsp";
+		String url=null;
 		int result=0;
 		request.setCharacterEncoding("utf-8");
 		String id=request.getParameter("id");
@@ -40,6 +40,7 @@ public class LoginServlet extends HttpServlet {
 			HttpSession sess=request.getSession();
 			sess.setAttribute("id", u.getId());
 			sess.setAttribute("nick",u.getNick());
+			sess.setAttribute("sports", u.getSports());
 			sess.setAttribute("isLogin", true);
 			url="index.jsp";
 		}else if(result==0) {

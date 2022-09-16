@@ -19,6 +19,7 @@ public class noticeDelete extends HttpServlet {
 		ud.noticeDelete(notenum);
 		
 		String category=request.getParameter("category");
+		request.setAttribute("category", category);
 		RequestDispatcher dis=request.getRequestDispatcher("boardmain?category="+category);
 		dis.forward(request, response);
 	}
