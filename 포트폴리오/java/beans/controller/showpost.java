@@ -20,6 +20,7 @@ public class showpost extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		String notenum=request.getParameter("notenum");
+		String postnum=notenum;
 		String sql="select * from notice where notenum=?";
 		Notice notice=new Notice();
 		Connection conn=null;
@@ -27,7 +28,7 @@ public class showpost extends HttpServlet {
 		ResultSet rs=null;
 		UserDAO ud=UserDAO.getInstance();
 		
-		ArrayList<Comment> cmtlist=ud.selCom(notenum);
+		ArrayList<Comment> cmtlist=ud.selCom(postnum);
 		
 		try {
 			conn=ud.getConnection();
