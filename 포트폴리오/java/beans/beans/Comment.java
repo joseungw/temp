@@ -7,7 +7,9 @@ public class Comment {
 	private String comnick;
 	private String comcon;	//내용
 	private String comdate;
-	private String recomnum;	//댓글참조번호 //대댓글번호
+	private String comok;	//댓글 답글 유무 0 or 1
+	private String recomnum;	//답글의 댓글 넘버
+	
 	
 	public int getComnum() {
 		return comnum;
@@ -44,6 +46,12 @@ public class Comment {
 	}
 	public void setComdate(String comdate) {
 		this.comdate = comdate;
+	}
+	public String getComok() {
+		return comok;
+	}
+	public void setComok(String comok) {
+		this.comok = comok;
 	}
 	public String getRecomnum() {
 		return recomnum;
