@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 
 import beans.User;
+import beans.Comment;
 import beans.Notice;
 
 public class UserDAO {
@@ -77,6 +78,7 @@ public class UserDAO {
 			rs.next();
 			u.setId(rs.getString("id"));
 			u.setNick(rs.getString("nick"));
+			u.setSports(rs.getString("sports"));
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -90,6 +92,9 @@ public class UserDAO {
 		}
 		return u;
 	}
+	
+//	=========================게시판에 대한 부분============================
+	
 	//게시판 카테고리로 분류 해서 보여주기 부분
 	public ArrayList<Notice> getNotiCate(String category) {
 		ArrayList<Notice> list=new ArrayList<Notice>();
@@ -234,7 +239,7 @@ public class UserDAO {
 			if(rs.next()) {
 				notice=new Notice();
 				notice.setNotenum(rs.getInt("notenum"));
-				notice.setUserid(rs.getString("usrid"));
+				notice.setUserid(rs.getString("userid"));
 				notice.setUsernick(rs.getString("usernick"));
 				notice.setCategory(rs.getString("category"));
 				notice.setNotedate(rs.getString("notedate"));
@@ -255,7 +260,88 @@ public class UserDAO {
 		}
 		return notice;
 	}
+	//내가 올린 게시물 보기 기능 (데이터베이스에서 내 아이디로 검색)
+	public ArrayList<Notice> MySelect(String userid) {
+		ArrayList<Notice> list=new ArrayList<Notice>();
+		Notice nt=null;
+		String sql="select * from Notice where userid=?";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				nt=new Notice();
+				nt.setNotenum(rs.getInt("notenum"));
+				nt.setUserid(rs.getString("userid"));
+				nt.setUsernick(rs.getString("usernick"));
+				nt.setCategory(rs.getString("category"));
+				nt.setNotedate(rs.getString("notedate"));
+				nt.setTitle(rs.getString("title"));
+				nt.setContents(rs.getString("contents"));
+				nt.setRegion(rs.getString("region"));
+				list.add(nt);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return list;
+	}
+//		=========================댓글에 대한 부분============================
 	
-	
+//댓글 보여주기 부분
+	public ArrayList<Comment> selCom(String postnum) {
+		ArrayList<Comment> cmlist=new ArrayList<Comment>();
+		Comment cmt=null;
+		String sql="select * from comment where postnum=?";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, postnum);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				cmt=new Comment();
+				cmt.setComnum(rs.getInt("comnum"));
+				cmt.setPostnum(rs.getString("postnum"));
+				cmt.setComid(rs.getString("comid"));
+				cmt.setPostnum(rs.getString("comnick"));
+				cmt.setPostnum(rs.getString("comcon"));
+				cmt.setPostnum(rs.getString("comdate"));
+				cmt.setComok(rs.getString("comok"));
+				cmt.setRecomnum(rs.getString("recomnum"));
+				cmlist.add(cmt);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return cmlist;
+	}
+	//댓글 작성하는 부분
 	
 }
