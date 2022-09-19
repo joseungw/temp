@@ -76,9 +76,19 @@
 				border-bottom:2px solid #0088FF;
 			}
 			#sel{
-				width:400px;
 				text-align:center;
 				font-size:20px;
+				border: 2px solid #0088FF;
+			    width: 300px;
+			}
+			input[type=submit]{
+				border: 2px solid #0088FF;
+			    padding: 3px;
+			    width: 70px;
+			    margin-left: 15px;
+			    padding-top: 4px;
+    			padding-bottom: 2px;
+    			background-color:white;
 			}
 			table td{
 				padding:10px;
@@ -92,8 +102,7 @@
 			}
 			#postit{
 				background-color:white;
-				border:2px solid black;
-				color:#0033FF;
+				border:2px solid #0088FF;
 				padding:3px;
 				font-weight:bold;
 			}
@@ -101,7 +110,12 @@
 				background-color:#0088FF;
 				color:white;
 				border:2px solid black;
-			} 
+			}
+			#search:hover{
+				border:2px solid black;
+				background-color:#0088FF;
+				color:white;
+			}
 		</style>
 	</head>
 	<body>
@@ -123,23 +137,26 @@
 				<div id="list"><a href="boardmain?category=골프">골프</a></div>
 			</div>
 			<div id="main">
-				<form method="get" action="boardregion.do?category=축구">
-					<select name="region" id="sel">
-						<option value="" selected>--지역--</option>
-						<option value="서울">서울</option>
-						<option value="남양주">남양주</option>
-						<option value="수원">수원</option>
-						<option value="부산">부산</option>
-						<option value="대구">대구</option>
-						<option value="대전">대전</option>
-						<option value="의정부">의정부</option>
-						<option value="인천">인천</option>
-					</select>
-					<input type="hidden" name="category" value="${category }">
-					<input type="submit" value="검색">
-				</form>
-				<br>
-				<input id="postit" type="button" value="게시물 작성하기" onclick="post()">
+				<div id="boardmenu">
+					<form method="get" action="boardregion.do?category=축구">
+						<select name="region" id="sel">
+							<option value="" selected>--지역--</option>
+							<option value="서울">서울</option>
+							<option value="남양주">남양주</option>
+							<option value="수원">수원</option>
+							<option value="부산">부산</option>
+							<option value="대구">대구</option>
+							<option value="대전">대전</option>
+							<option value="의정부">의정부</option>
+							<option value="인천">인천</option>
+						</select>
+						<input type="hidden" name="category" value="${category }">
+						<input type="hidden" name="sports" value="${sports }">
+						<input id="search" type="submit" value="검색">
+					</form>
+					<br>
+					<input id="postit" type="button" value="게시물 작성" onclick="post()">
+				</div>
 				<table>
 					<thead>
 						<tr>

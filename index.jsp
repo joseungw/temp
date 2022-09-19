@@ -54,9 +54,8 @@
 			/* 여기까지 기본 헤더부분 */
 			#loginbox{
 				width:200px;
-				border:1px solid black;
+				border:1px solid #0088FF;
 				float:right;
-				height:400px;
 				display:inline-block;
 			}
 			#loginbox input{
@@ -95,6 +94,9 @@
 		</style>
 	</head>
 	<body>
+		<%
+			String category=(String)session.getAttribute("sports");
+		%>
 		<div id="wrap">
 			<div id="logo">
 				<a href="index.jsp"><b>Sports</b></a>
@@ -107,18 +109,20 @@
 				<div id="list"><a href="boardmain?category=골프">골프</a></div>
 			</div>
 			<div id="main">
-				<div id="radius"></div>
+				<div id="radius">
+					
+				</div>
 					<c:choose>
 						<c:when test="${id!=null }">
 							<div id="loginbox">
 								<input type="button" value="로그아웃" onclick="logout()">
 								
-								<p>${id }</p><br>
-								<p>${nick }님<br>환영 합니다.</p>
-								<a href="mynote.do">
+								<p>${id } 님<br>환영합니다.</p>
+								<a href="mynote.do?id=${id }&sports=${sports }">
 									내 게시물 보기
-									<input type="hidden" name="id" value="${id }">
-								</a>
+								</a><br>
+								<a href="">내 정보 수정</a><br>
+								<a href="">정보에 맞는 게시물 보기</a>
 							</div>
 						</c:when>
 						<c:otherwise>
