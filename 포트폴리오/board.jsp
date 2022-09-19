@@ -88,6 +88,7 @@
 			    margin-left: 15px;
 			    padding-top: 4px;
     			padding-bottom: 2px;
+    			background-color:white;
 			}
 			table td{
 				padding:10px;
@@ -101,8 +102,7 @@
 			}
 			#postit{
 				background-color:white;
-				border:2px solid black;
-				color:#0033FF;
+				border:2px solid #0088FF;
 				padding:3px;
 				font-weight:bold;
 			}
@@ -111,10 +111,11 @@
 				color:white;
 				border:2px solid black;
 			}
-			/* 
-				margin-left: 348px;
-    			margin-top: 30px;
-			 */
+			#search:hover{
+				border:2px solid black;
+				background-color:#0088FF;
+				color:white;
+			}
 		</style>
 	</head>
 	<body>
@@ -151,7 +152,7 @@
 						</select>
 						<input type="hidden" name="category" value="${category }">
 						<input type="hidden" name="sports" value="${sports }">
-						<input type="submit" value="검색">
+						<input id="search" type="submit" value="검색">
 					</form>
 					<br>
 					<input id="postit" type="button" value="게시물 작성" onclick="post()">
