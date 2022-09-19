@@ -322,9 +322,9 @@ public class UserDAO {
 				cmt.setComnum(rs.getInt("comnum"));
 				cmt.setPostnum(rs.getString("postnum"));
 				cmt.setComid(rs.getString("comid"));
-				cmt.setPostnum(rs.getString("comnick"));
-				cmt.setPostnum(rs.getString("comcon"));
-				cmt.setPostnum(rs.getString("comdate"));
+				cmt.setComnick(rs.getString("comnick"));
+				cmt.setComcon(rs.getString("comcon"));
+				cmt.setComdate(rs.getString("comdate"));
 				cmt.setComok(rs.getString("comok"));
 				cmt.setRecomnum(rs.getString("recomnum"));
 				cmlist.add(cmt);
@@ -343,5 +343,32 @@ public class UserDAO {
 		return cmlist;
 	}
 	//댓글 작성하는 부분
-	
+	public void CommentShow(Comment c) {
+		String sql="insert into comment (postnum,comid,comnick,comcon,comdate,comok,recomnum) ";
+		sql+="values (?,?,?,?,?,?,?)";
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, c.getPostnum());
+			pstmt.setString(2, c.getComid());
+			pstmt.setString(3, c.getComnick());
+			pstmt.setString(4, c.getComcon());
+			pstmt.setString(5, c.getComdate());
+			pstmt.setString(6, c.getComok());
+			pstmt.setString(7, c.getRecomnum());
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
 }
