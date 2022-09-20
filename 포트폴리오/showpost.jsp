@@ -170,7 +170,7 @@
 			}
 			#recombox{
 				display:none;
-				margin-left:105px;
+				margin-left:20px;
 				margin-top: -15px;
 				font-size:14px;
 			}
@@ -195,10 +195,20 @@
 				display:inline-block;
 				width:70px;
 				height:30px;
+				margin-left: 10px;
+				text-align: center;
+				line-height: 30px;
+			}
+			#commentUpdate:hover, #commentDelete:hover{
+				background-color:#3399FF;
+				border: 2px solid black;
+				color:white;
 			}
 			#other{
 				width:75px;
 				display:inline-block;
+				float:right;
+				margin-top:-10px;
 			}
 			#other p{
 				display:inline-block;
@@ -274,20 +284,19 @@
 									<div id="li1">
 										${cmt.getComnick() }
 										<p id="oncl" onclick="recomWrite()">답글달기</p>
-										
 									</div>
 									<div id="li2">
 										${cmt.getComcon() }
 									</div>
 									<div id="li3">
 										${cmt.getComdate() }
+										<p onclick="">...</p>
 									</div>
 										<c:choose>
 											<c:when test="${cmt.getComid() eq id}">
 												<div id="other">
-													<p onclick="">...</p>
-													<!-- <div id="commentUpdate">수정</div>
-													<div id="commentDelete">삭제</div> -->
+													<div id="commentUpdate">수정</div>
+													<div id="commentDelete">삭제</div>
 												</div>
 											</c:when>
 										</c:choose>
