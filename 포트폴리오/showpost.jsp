@@ -84,9 +84,8 @@
 			}
 			#postMain{
 				padding:25px 65px 25px 65px;
-   				padding-top: 25px;
    				border-bottom:1px solid #3399FF;
-   				height:250px;
+   				min-height:250px;
 			}
 			#line{
 				font-weight:900;
@@ -94,52 +93,38 @@
 			/* 여기까지 게시판 메인부분 */
 			#comTitle{
 				border-bottom:1px solid #3399FF;
-				padding:15px 65px;
+				padding-left:65px;
 			}
-			ul{
-				margin:3px;
-				border-bottom:1px solid #99CCFF;
-			}
-			ul li{
-				list-style:none;
-				padding:5px 23px;
-			}
-			ul li div{
+			#comTitle p, #combtn{
 				display:inline-block;
-				list-style:none;
-				font-size:14px;
 			}
-			#li1{
-				width:150px;
-			}
-			#li2{
-				width:600px;
-			}
-			#li3{
-				width:130px;
-				color:#999;
-			}
-			textarea[name=comcon]{
-				width:70%;
-				height:100px;
-				resize:none;
-				margin-left:55px;
-				margin-top:-15px;
+			#combtn{
 				border:2px solid #3399FF;
+				padding:6px;
+				margin-left:15px;
+			}
+			#combtn:hover{
+				border:2px solid black;
+				color:white;
+				background-color:#3399FF;
+			}
+			#comWrite{
+				resize:none;
+				border:2px solid #3399FF;
+				width: 620px;
+    			min-height: 100px;
+    			margin-left: 54px;
+    			margin-top: -40px;
 			}
 			#combox{
-				margin-left:65px;
-				font-size:14px;
-			}
-			#commain input{
-				width:70px;
-				height:25px;
-				padding:3px;
+				margin: 20px 65px;
+				padding:0;
+				display:none;
 			}
 			#comok{
 				padding: 3px;
 			    width: 70px;
-			    margin-left: 648px;
+			    margin-left: 612px;
 			    border:2px solid #3399FF;
 			    background-color:white;
 			}
@@ -148,14 +133,80 @@
 				background-color:#3399FF;
 				color:white;
 			}
-			#recombox{
-				/* display:none; */
-				margin-left:225px;
+			ul{
+				margin:0;
+				border-bottom:1px solid #99CCFF;
 			}
-			#comnick1{
-				margin-left:155px;
+			ul li{
+				list-style:none;
+				padding:0px 25px;
+			}
+			#li1, #li2, #li3{
+				display:inline-block;
 				font-size:14px;
 			}
+			#li1{
+				width:200px;
+			}
+			#li1 p{
+				display:inline-block;
+				margin-left:45px;
+				color:#999;
+				font-size:12px;
+			}
+			#li2{
+				width: 490px;
+			}
+			#li3{
+				width: 120px;
+				color:#999;
+				margin-left: 8px;
+			}
+			#li3 p{
+				display:inline-block;
+				margin-left:30px;
+				color:black;
+				padding:5px;
+			}
+			#recombox{
+				display:none;
+				margin-left:105px;
+				margin-top: -15px;
+				font-size:14px;
+			}
+			#recomWrite{
+				resize: none;
+			    border: 2px solid #3399FF;
+			    width: 620px;
+			    min-height: 100px;
+			    margin-left: 70px;
+   				margin-top: -35px;
+			}
+			#recomok{
+				padding: 3px;
+			    width: 70px;
+			    margin-left: 628px;
+			    border: 2px solid #3399FF;
+			    background-color: white;
+			}
+			#commentUpdate, #commentDelete{
+				border:2px solid #3399FF;
+				color:#3399FF;
+				display:inline-block;
+				width:70px;
+				height:30px;
+			}
+			#other{
+				width:75px;
+				display:inline-block;
+			}
+			#other p{
+				display:inline-block;
+				margin-left: 40px;
+				
+			}
+	/* ====================================================== */
+			
 		</style>
 	</head>
 	<body>
@@ -201,12 +252,29 @@
 				</div>
 				<div id="comment">
 					<form method="get" action="comment">
-						<div id="comTitle">댓글</div>
+						<div id="comTitle"><p>댓글</p>
+							<div id="combtn" onclick="comWrite()">댓글달기↓</div>
+						</div>
+						<div id="combox">
+							<p id="comnick">${nick }</p>
+							<textarea id="comWrite" name="comcon" placeholder="댓글을 입력해주세요."></textarea>
+							<input type="submit" id="comok" value="등록" formaction="comment">
+						</div>
+<!-- hidden 값가져가기 -->	<input type="hidden" name="postnum" value="${notice.getNotenum() }">
+<!-- hidden 값가져가기 -->	<input type="hidden" name="comid" value="${id }">
+<!-- hidden 값가져가기 -->	<input type="hidden" name="comnick" value="${nick }">
+					</form>
+					
+					<!-- =====================답급 부분+++++++++++++++++ -->
+					
+					<form method="get" action="recomment">
 						<c:forEach items="${cmt }" var="cmt">
 							<ul>
 								<li>
 									<div id="li1">
 										${cmt.getComnick() }
+										<p id="oncl" onclick="recomWrite()">답글달기</p>
+										
 									</div>
 									<div id="li2">
 										${cmt.getComcon() }
@@ -214,32 +282,49 @@
 									<div id="li3">
 										${cmt.getComdate() }
 									</div>
+										<c:choose>
+											<c:when test="${cmt.getComid() eq id}">
+												<div id="other">
+													<p onclick="">...</p>
+													<!-- <div id="commentUpdate">수정</div>
+													<div id="commentDelete">삭제</div> -->
+												</div>
+											</c:when>
+										</c:choose>
+									<div id="recombox">
+										<p>┗ ${nick }</p>
+										<textarea id="recomWrite" name="recomcon" placeholder="답글을 입력해주세요."></textarea>
+										<input type="submit" id="recomok" value="등록" formaction="recomment">
+									</div>
 								</li>
 							</ul>
-							<textarea id="recombox" name="comcon" placeholder="답글을 입력해주세요."></textarea>
 						</c:forEach>
-						
-						<input type="hidden" name="postnum" value="${notice.getNotenum() }">
-						<input type="hidden" name="comid" value="${id }">
-						<input type="hidden" name="comnick" value="${nick }">
-						
-						<div id="combox">
-							<div id="comnick2">
-								${nick }
-							</div>
-							<div id="commain">
-								
-								<textarea name="comcon" placeholder="댓글을 입력해주세요."></textarea>
-								<input type="hidden" name="notenum" value="${notice.getNotenum() }"> 
-							</div>
-							<input type="submit" id="comok" value="등록">
-						</div>
+<!-- hidden 값가져가기 -->	<input type="hidden" name="postnum" value="${notice.getNotenum() }">
+<!-- hidden 값가져가기 -->	<input type="hidden" name="comid" value="${id }">
+<!-- hidden 값가져가기 -->	<input type="hidden" name="comnick" value="${nick }">
 					</form>
 				</div>
 			</div>
 		</div>
 		<script>
-			
+			function comWrite(){
+				var combox=document.getElementById("combox");
+				if(combox.style.display=="none"){
+					combox.style.display="inline-block";
+				}
+				else{
+					combox.style.display="none";
+				}
+			}
+			function recomWrite(){
+				var recombox=document.getElementById("recombox");
+				if(recombox.style.display=="none"){
+					recombox.style.display="inline-block";
+				}
+				else{
+					recombox.style.display="none";
+				}
+			}
 		</script>
 	</body>
 </html>
