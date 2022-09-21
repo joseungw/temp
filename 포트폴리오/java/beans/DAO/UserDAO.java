@@ -325,7 +325,6 @@ public class UserDAO {
 				cmt.setComnick(rs.getString("comnick"));
 				cmt.setComcon(rs.getString("comcon"));
 				cmt.setComdate(rs.getString("comdate"));
-				cmt.setComok(rs.getString("comok"));
 				cmt.setRecomnum(rs.getString("recomnum"));
 				cmlist.add(cmt);
 			}
@@ -344,8 +343,8 @@ public class UserDAO {
 	}
 	//댓글 작성하는 부분
 	public void CommentShow(Comment c) {
-		String sql="insert into comment (postnum,comid,comnick,comcon,comdate,comok,recomnum) ";
-		sql+="values (?,?,?,?,?,?,?)";
+		String sql="insert into comment (postnum,comid,comnick,comcon,comdate,recomnum) ";
+		sql+="values (?,?,?,?,?,?)";
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		
@@ -357,8 +356,95 @@ public class UserDAO {
 			pstmt.setString(3, c.getComnick());
 			pstmt.setString(4, c.getComcon());
 			pstmt.setString(5, c.getComdate());
-			pstmt.setString(6, c.getComok());
-			pstmt.setString(7, c.getRecomnum());
+			pstmt.setString(6, c.getRecomnum());
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+	//답글 보여주는 부분
+	public ArrayList<Comment> selectRecomment(String recomnum) {
+		ArrayList<Comment> recmtlist=new ArrayList<Comment>();
+		Comment recmt=null;
+		String sql="select * from comment where recomnum=?";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, recomnum);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				recmt=new Comment();
+				recmt.setComnum(rs.getInt("comnum"));
+				recmt.setPostnum(rs.getString("postnum"));
+				recmt.setComid(rs.getString("comid"));
+				recmt.setComnick(rs.getString("comnick"));
+				recmt.setComcon(rs.getString("comcon"));
+				recmt.setComdate(rs.getString("comdate"));
+				recmt.setRecomnum(rs.getString("recomnum"));
+				recmtlist.add(recmt);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return recmtlist;
+	}
+	//답글 작성 부분
+	public void recommentWrite(Comment c) {
+		String sql="insert into comment (postnum,comid,comnick,comcon,comdate,recomnum) ";
+		sql+="values (?,?,?,?,?,?)";
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, c.getPostnum());
+			pstmt.setString(2, c.getComid());
+			pstmt.setString(3, c.getComnick());
+			pstmt.setString(4, c.getComcon());
+			pstmt.setString(5, c.getComdate());
+			pstmt.setString(6, c.getRecomnum());
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+	//댓글 삭제 기능 
+	public void commentDelete(String comnum) {
+		String sql="delete from comment where comnum=?";
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, comnum);
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
