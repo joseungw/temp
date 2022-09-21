@@ -80,6 +80,8 @@
 				font-size:20px;
 				border: 2px solid #0088FF;
 			    width: 300px;
+			    margin-left: 357px;
+    			margin-top: 25px;
 			}
 			input[type=submit]{
 				border: 2px solid #0088FF;
@@ -89,6 +91,7 @@
 			    padding-top: 4px;
     			padding-bottom: 2px;
     			background-color:white;
+    			font-weight: bold;
 			}
 			table td{
 				padding:10px;
@@ -103,8 +106,10 @@
 			#postit{
 				background-color:white;
 				border:2px solid #0088FF;
-				padding:3px;
+				padding:4px;
 				font-weight:bold;
+				float:right;
+				margin-bottom: 10px;
 			}
 			#postit:hover{
 				background-color:#0088FF;
@@ -152,9 +157,9 @@
 						</select>
 						<input type="hidden" name="category" value="${category }">
 						<input type="hidden" name="sports" value="${sports }">
-						<input id="search" type="submit" value="검색">
+						<input id="search" type="submit" value="검색" onclick="return noValue()">
 					</form>
-					<br>
+					
 					<input id="postit" type="button" value="게시물 작성" onclick="post()">
 				</div>
 				<table>
@@ -182,7 +187,7 @@
 			</div>
 		</div>
 		<script>
-			function post(){
+			function post(){	//로그인 하지 않았을 때 alert
 				if(<%=id ==null%>){
 					alert("로그인 후 이용해주세요.");
 				}
@@ -192,6 +197,13 @@
 			}
 			function showpost(num){
 				location.href="showpost?notenum="+num;
+			}
+			function noValue(){	//검색할 때 value가 아무것도 없을 때 alert
+				if(document.getElementById("sel").value==""){
+					alert("지역을 선택 해주세요.");
+					return false;
+				}
+				return true;
 			}
 		</script>
 	</body>

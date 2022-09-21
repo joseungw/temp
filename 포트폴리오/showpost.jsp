@@ -117,7 +117,7 @@
     			margin-top: -40px;
 			}
 			#combox{
-				margin: 20px 65px;
+				margin: 5px 65px;
 				padding:0;
 				display:none;
 			}
@@ -139,7 +139,7 @@
 			}
 			ul li{
 				list-style:none;
-				padding:0px 25px;
+				padding-left:25px;
 			}
 			#li1, #li2, #li3{
 				display:inline-block;
@@ -158,7 +158,7 @@
 				width: 490px;
 			}
 			#li3{
-				width: 120px;
+				width: 170px;
 				color:#999;
 				margin-left: 8px;
 			}
@@ -168,7 +168,7 @@
 				color:black;
 				padding:5px;
 			}
-			#recombox{
+			.recombox{
 				display:none;
 				margin-left:20px;
 				margin-top: -15px;
@@ -204,17 +204,34 @@
 				border: 2px solid black;
 				color:white;
 			}
-			#other{
+			.other{
 				width:75px;
-				display:inline-block;
+				display:none;
 				float:right;
-				margin-top:-10px;
+				margin-top: -37px;
+    			margin-right: 8px;
 			}
-			#other p{
+			.other p{
 				display:inline-block;
 				margin-left: 40px;
 				
 			}
+			.view{
+				line-height:3px;
+			}
+			/* 햄버거 버튼 시작 */
+			#burgur{
+				display:inline-block;
+				height:50px;
+				/* background:url(burgerBtn.png);
+				background-repeat:no-repeat;
+				background-size:cover; */
+			}
+			#burgur img{
+				height:20px;
+				width:20px;
+			}
+			/* 햄버거 버튼 끝 */
 	/* ====================================================== */
 			
 		</style>
@@ -248,8 +265,11 @@
 					</h2>
 					<c:choose>
 						<c:when test="${notice.getUserid() eq id }">
-							<a href="noticeUpdate?notenum=${notice.getNotenum() }">게시물 수정</a>
-							<a href="noticeDelete?notenum=${notice.getNotenum() }&category=${notice.getCategory()}">게시물 삭제</a>
+							<div id="burgur">
+								<img src="burgerBtn.png">
+								<a href="noticeUpdate?notenum=${notice.getNotenum() }">게시물 수정</a>
+								<a href="noticeDelete?notenum=${notice.getNotenum() }&category=${notice.getCategory()}">게시물 삭제</a>
+							</div>
 						</c:when>
 					</c:choose>
 				</div>
@@ -263,7 +283,7 @@
 				<div id="comment">
 					<form method="get" action="comment">
 						<div id="comTitle"><p>댓글</p>
-							<div id="combtn" onclick="comWrite()">댓글달기↓</div>
+							<div id="combtn" onclick="comWrite()" >댓글달기↓</div>
 						</div>
 						<div id="combox">
 							<p id="comnick">${nick }</p>
@@ -277,63 +297,98 @@
 					
 					<!-- =====================답급 부분+++++++++++++++++ -->
 					
-					<form method="get" action="recomment">
-						<c:forEach items="${cmt }" var="cmt">
+					<c:forEach items="${cmt }" var="cmt">
+						<form method="get" action="recomment">
 							<ul>
 								<li>
 									<div id="li1">
 										${cmt.getComnick() }
-										<p id="oncl" onclick="recomWrite()">답글달기</p>
+										<p class="oncl">답글달기</p>
 									</div>
 									<div id="li2">
 										${cmt.getComcon() }
 									</div>
 									<div id="li3">
 										${cmt.getComdate() }
-										<p onclick="">...</p>
+										<p class="view">...</p>
 									</div>
 										<c:choose>
 											<c:when test="${cmt.getComid() eq id}">
-												<div id="other">
-													<div id="commentUpdate">수정</div>
-													<div id="commentDelete">삭제</div>
+												<div class="other">
+													<div id="commentDelete" onclick="location.href='commentDelete?comnum='+${cmt.getComnum() }+'&postnum='+${notice.getNotenum() }">삭제</div>
 												</div>
 											</c:when>
 										</c:choose>
-									<div id="recombox">
+									<div class="recombox">
 										<p>┗ ${nick }</p>
 										<textarea id="recomWrite" name="recomcon" placeholder="답글을 입력해주세요."></textarea>
 										<input type="submit" id="recomok" value="등록" formaction="recomment">
+										<input type="hidden" name="comnum" value="${cmt.getComnum() }">
+				<!-- hidden 값가져가기 -->	<input type="hidden" name="postnum" value="${notice.getNotenum() }">
+				<!-- hidden 값가져가기 -->	<input type="hidden" name="comid" value="${id }">
+				<!-- hidden 값가져가기 -->	<input type="hidden" name="comnick" value="${nick }">
 									</div>
+									<c:forEach items="">
+										
+									</c:forEach>
 								</li>
 							</ul>
-						</c:forEach>
-<!-- hidden 값가져가기 -->	<input type="hidden" name="postnum" value="${notice.getNotenum() }">
-<!-- hidden 값가져가기 -->	<input type="hidden" name="comid" value="${id }">
-<!-- hidden 값가져가기 -->	<input type="hidden" name="comnick" value="${nick }">
-					</form>
+						</form>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
 		<script>
-			function comWrite(){
-				var combox=document.getElementById("combox");
-				if(combox.style.display=="none"){
-					combox.style.display="inline-block";
+			function comWrite(){	//댓글달기 onclick
+				if(<%=id==null %>){
+					alert("로그인 후 이용해주세요.");		//로그인 확인
 				}
-				else{
-					combox.style.display="none";
-				}
-			}
-			function recomWrite(){
-				var recombox=document.getElementById("recombox");
-				if(recombox.style.display=="none"){
-					recombox.style.display="inline-block";
-				}
-				else{
-					recombox.style.display="none";
+				else{				//로그인 상태라면 댓글박스 보이기
+					var combox=document.getElementById("combox");
+					if(combox.style.display==""){
+						combox.style.display="inline-block";
+					}
+					else{
+						combox.style.display="";
+					}
 				}
 			}
+			//답글 달기 버튼 클릭 시 답글 나오기  
+			var oncl=document.getElementsByClassName("oncl");
+			for(var i=0; i<oncl.length; i++){
+				showrecom(i);
+			}
+			function showrecom(i){
+					oncl[i].addEventListener("click",function(){
+					
+					var recombox=document.getElementsByClassName("recombox");
+					
+					if(recombox[i].style.display==""){
+						recombox[i].style.display="inline-block";
+					}
+					else{
+						recombox[i].style.display="";
+					}
+					
+				});
+			}
+			//==============================================
+			//답글 삭제 버튼 클릭시 삭제 버튼 보이기
+			var view=document.getElementsByClassName("view");
+			for(var j=0; j<view.length; j++){
+				viewDelete(j);
+			}
+			function viewDelete(j){
+				view[j].addEventListener("click",function(){
+					var other=document.getElementsByClassName("other");
+					if(other[j].style.display==""){
+						other[j].style.display="inline-block";
+					}else{
+						other[j].style.display=""
+					}
+				});
+			}
+			
 		</script>
 	</body>
 </html>
