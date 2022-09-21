@@ -47,12 +47,6 @@ public class Comment {
 	public void setComdate(String comdate) {
 		this.comdate = comdate;
 	}
-	public String getComok() {
-		return comok;
-	}
-	public void setComok(String comok) {
-		this.comok = comok;
-	}
 	public String getRecomnum() {
 		return recomnum;
 	}
