@@ -31,7 +31,6 @@ public class comment extends HttpServlet {
 		int minute=now.get(Calendar.MINUTE);
 		String comdate=""+year+"-"+month+"-"+day+"-"+hour+":"+minute;
 		
-		String comok=request.getParameter("comok");
 		String recomnum=request.getParameter("recomnum");
 		
 		UserDAO ud=UserDAO.getInstance();
@@ -41,7 +40,6 @@ public class comment extends HttpServlet {
 		c.setComnick(comnick);
 		c.setComcon(comcon);
 		c.setComdate(comdate);
-		c.setComok(comok);
 		c.setRecomnum(recomnum);
 		
 		ud.CommentShow(c);
