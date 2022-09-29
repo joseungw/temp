@@ -63,6 +63,62 @@ public class UserDAO {
 		}
 		return result;
 	}
+	//회원가입에 아이디 중복체크 구현 기능
+	public boolean idCheak(String id) {
+		String sql="select * from user where id=?";
+		boolean cheak = false;
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,id);
+			rs=pstmt.executeQuery();
+			
+			cheak=rs.next();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+			
+		}
+		return cheak;
+	}
+	//회원가입에 닉네임 중복체크 구현 기능
+		public boolean nickCheak(String nick) {
+			String sql="select * from user where nick=?";
+			boolean cheak = false;
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			try {
+				conn=getConnection();
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1,nick);
+				rs=pstmt.executeQuery();
+				
+				cheak=rs.next();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					if(rs!=null)rs.close();
+					if(pstmt!=null)pstmt.close();
+					if(conn!=null)conn.close();
+				}catch(Exception ex) {
+					ex.printStackTrace();
+				}
+				
+			}
+			return cheak;
+		}
 	//사용자 정보 조회
 	public User getUser(String id) {
 		User u=new User();
@@ -76,9 +132,14 @@ public class UserDAO {
 			pstmt.setString(1, id);
 			rs=pstmt.executeQuery();
 			rs.next();
+			u.setName(rs.getString("name"));
+			u.setPhone(rs.getString("phone"));
 			u.setId(rs.getString("id"));
 			u.setNick(rs.getString("nick"));
 			u.setSports(rs.getString("sports"));
+			u.setCity(rs.getString("city"));
+			u.setPassword(rs.getString("password"));
+			u.setNum(rs.getInt("num"));
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -92,14 +153,45 @@ public class UserDAO {
 		}
 		return u;
 	}
+	public void UserUpdate(User u) {
+		String sql="update User set name=?, phone=?, id=?, password=?, nick=?,";
+		sql+=" city=?, sports=? where num=?";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, u.getName());
+			pstmt.setString(2, u.getPhone());
+			pstmt.setString(3, u.getId());
+			pstmt.setString(4, u.getPassword());
+			pstmt.setString(5, u.getNick());
+			pstmt.setString(6, u.getCity());
+			pstmt.setString(7, u.getSports());
+			pstmt.setInt(8, u.getNum());
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
 	
 //	=========================게시판에 대한 부분============================
 	
 	//게시판 카테고리로 분류 해서 보여주기 부분
-	public ArrayList<Notice> getNotiCate(String category) {
+	public ArrayList<Notice> getNotiCate(String category, int currentPage) {
 		ArrayList<Notice> list=new ArrayList<Notice>();
 		Notice nt=null;
-		String sql="select * from Notice where category=?";
+		int start=currentPage*10-10;
+		String sql="select * from Notice where category=? order by notenum desc limit ?, 10";
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -109,6 +201,7 @@ public class UserDAO {
 			conn=getConnection();
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, category);
+			pstmt.setInt(2, start);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				nt=new Notice();
@@ -136,10 +229,11 @@ public class UserDAO {
 		return list;
 	}
 	//게시판 지역과 카테로리로 분류 해서 보여주기 부분
-		public ArrayList<Notice> selectTwo(String category,String region) {
+		public ArrayList<Notice> selectTwo(String category,String region,int currentPage) {
 			ArrayList<Notice> list=new ArrayList<Notice>();
 			Notice nt=null;
-			String sql="select * from Notice where category=? and region=?";
+			int start=currentPage*10-10;
+			String sql="select * from Notice where category=? and region=? order by notenum desc limit ?,10";
 			
 			Connection conn=null;
 			PreparedStatement pstmt=null;
@@ -150,6 +244,7 @@ public class UserDAO {
 				pstmt=conn.prepareStatement(sql);
 				pstmt.setString(1, category);
 				pstmt.setString(2, region);
+				pstmt.setInt(3, start);
 				rs=pstmt.executeQuery();
 				while(rs.next()) {
 					nt=new Notice();
@@ -224,7 +319,7 @@ public class UserDAO {
 			}
 		}
 	}
-	//게시물 수정을 위한 업데이트 기능(데이터베이스 개별 조회 기능)
+	//게시물 수정을 위한 업데이트 기능 구현 부분(데이터베이스 개별 조회 기능)
 	public Notice selectNotice(String notenum) {
 		Notice notice=null;
 		String sql="select * from notice where notenum=?";
@@ -261,10 +356,11 @@ public class UserDAO {
 		return notice;
 	}
 	//내가 올린 게시물 보기 기능 (데이터베이스에서 내 아이디로 검색)
-	public ArrayList<Notice> MySelect(String userid) {
+	public ArrayList<Notice> MySelect(String userid, int currentPage) {
 		ArrayList<Notice> list=new ArrayList<Notice>();
 		Notice nt=null;
-		String sql="select * from Notice where userid=?";
+		int start=currentPage*10-10;
+		String sql="select * from Notice where userid=? order by notenum desc limit ?,10";
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -274,6 +370,7 @@ public class UserDAO {
 			conn=getConnection();
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, userid);
+			pstmt.setInt(2, start);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				nt=new Notice();
@@ -286,6 +383,49 @@ public class UserDAO {
 				nt.setContents(rs.getString("contents"));
 				nt.setRegion(rs.getString("region"));
 				list.add(nt);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return list;
+	}
+	//내 스포츠종목과 지역만 나오는 게시물 기능
+	public ArrayList<Notice> myImport( String category, String region, int currentPage) {
+		ArrayList<Notice> list=new ArrayList<Notice>();
+		Notice mynt=null;
+		int start=currentPage*10-10;
+		String sql="select * from Notice where category=? and region=? order by notenum desc limit ?,10";
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, category);
+			pstmt.setString(2, region);
+			pstmt.setInt(3, start);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				mynt=new Notice();
+				mynt.setNotenum(rs.getInt("notenum"));
+				mynt.setUserid(rs.getString("userid"));
+				mynt.setUsernick(rs.getString("usernick"));
+				mynt.setCategory(rs.getString("category"));
+				mynt.setNotedate(rs.getString("notedate"));
+				mynt.setTitle(rs.getString("title"));
+				mynt.setContents(rs.getString("contents"));
+				mynt.setRegion(rs.getString("region"));
+				list.add(mynt);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -370,7 +510,7 @@ public class UserDAO {
 		}
 	}
 	//답글 보여주는 부분
-	public ArrayList<Comment> selectRecomment(String recomnum) {
+	public ArrayList<Comment> selectRecomment(int recomnum) {
 		ArrayList<Comment> recmtlist=new ArrayList<Comment>();
 		Comment recmt=null;
 		String sql="select * from comment where recomnum=?";
@@ -382,7 +522,7 @@ public class UserDAO {
 		try {
 			conn=getConnection();
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, recomnum);
+			pstmt.setInt(1, recomnum);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				recmt=new Comment();
@@ -457,4 +597,89 @@ public class UserDAO {
 			}
 		}
 	}
+	//========================게시판 페이지 넘기기 기능============================
+	//카테고리의 갯수를 가져오는 동작
+	public int getCategoryOfRows(String category) {
+		String sql="select count(notenum) from notice where category=?;";
+		int numberOfRows=0;
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,category);
+			rs=pstmt.executeQuery();
+			rs.next();
+			numberOfRows=Integer.parseInt(rs.getString(1));
+		}catch(Exception e) {
+			System.out.println("UserDAO.getCategoryOfRows 접속 중 오류발생 : "+e);
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				System.out.println("UserDAO.getCategoryOfRows 종료 중 오류발생 : "+ex);
+			}
+		}
+		return numberOfRows;
+	}
+	//아이디로검색하여 페이지 갯수를 가져오는 동작
+	public int getUseridOfRows(String userid) {
+		String sql="select count(notenum) from notice where userid=?;";
+		int numberOfRows=0;
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,userid);
+			rs=pstmt.executeQuery();
+			rs.next();
+			numberOfRows=Integer.parseInt(rs.getString(1));
+		}catch(Exception e) {
+			System.out.println("UserDAO.getCategoryOfRows 접속 중 오류발생 : "+e);
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				System.out.println("UserDAO.getCategoryOfRows 종료 중 오류발생 : "+ex);
+			}
+		}
+		return numberOfRows;
+	}
+	//카테고리와 지역을 같이 검색하는  페이지 갯수를 가져오는 동작
+	public int getRegionOfRows(String region,String category) {
+		String sql="select count(notenum) from notice where category=? and region=?;";
+		int numberOfRows=0;
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,category);
+			pstmt.setString(2, region);
+			rs=pstmt.executeQuery();
+			rs.next();
+			numberOfRows=Integer.parseInt(rs.getString(1));
+		}catch(Exception e) {
+			System.out.println("UserDAO.getRegionOfRows 접속 중 오류발생 : "+e);
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				System.out.println("UserDAO.getRegionOfRows 종료 중 오류발생 : "+ex);
+			}
+		}
+		return numberOfRows;
+	}
+	
+		
 }
