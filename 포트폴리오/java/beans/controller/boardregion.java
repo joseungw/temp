@@ -23,15 +23,25 @@ public class boardregion extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		String region=request.getParameter("region");
 		String category=request.getParameter("category");
-		System.out.println(category);
-		System.out.println(region);
+		int currentPage=Integer.parseInt(request.getParameter("currentPage"));
+		System.out.println(currentPage);
 		
 		UserDAO ud=UserDAO.getInstance();
 		
-		ArrayList<Notice> list=ud.selectTwo(category, region);
+		ArrayList<Notice> list=ud.selectTwo(category, region, currentPage);
+		
+		int row=ud.getRegionOfRows(region,category);
+		int nOfPage=row/10;
+		System.out.println(nOfPage);
+		if(row%10>0) {
+			nOfPage++;
+		}
+		request.setAttribute("nPage", nOfPage);
 		request.setAttribute("category", category);
+		request.setAttribute("region", region);
+		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("list", list);
-		RequestDispatcher dis=request.getRequestDispatcher("board.jsp");
+		RequestDispatcher dis=request.getRequestDispatcher("boardRegion.jsp");
 		dis.forward(request, response);
 		
 	}

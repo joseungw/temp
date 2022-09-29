@@ -34,9 +34,9 @@ public class notice extends HttpServlet {
 		PreparedStatement pstmt=null;
 		String sql="insert into notice (userid, usernick, category, notedate, title, contents ,region) ";
 		sql+="values (?,?,?,?,?,?,?)";	//
+		UserDAO ud=UserDAO.getInstance();
 		
 		try {
-			UserDAO ud=UserDAO.getInstance();
 			conn=ud.getConnection();
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, userid);
@@ -58,8 +58,17 @@ public class notice extends HttpServlet {
 				System.out.println("데이터베이스 연결 해제 중 오류 : "+ex);
 			}
 		}
-		//request.setAttribute("category", category);
-		RequestDispatcher dis=request.getRequestDispatcher("boardmain?category="+category);
+		int row=ud.getCategoryOfRows(category);
+		int nOfPage=row/10;
+		System.out.println(nOfPage);
+		if(row%10>0) {
+			nOfPage++;
+		}
+		request.setAttribute("nPage", nOfPage);
+		request.setAttribute("category", category);
+		request.setAttribute("currentPage", 1);
+//		RequestDispatcher dis=request.getRequestDispatcher("boardmain?category="+category+"&currentPage=1");
+		RequestDispatcher dis=request.getRequestDispatcher("boardmain?category="+category+"&currentPage=1");
 		dis.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

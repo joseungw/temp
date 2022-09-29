@@ -31,7 +31,7 @@ public class comment extends HttpServlet {
 		int minute=now.get(Calendar.MINUTE);
 		String comdate=""+year+"-"+month+"-"+day+"-"+hour+":"+minute;
 		
-		String recomnum=request.getParameter("recomnum");
+		//
 		
 		UserDAO ud=UserDAO.getInstance();
 		Comment c=new Comment();
@@ -40,15 +40,15 @@ public class comment extends HttpServlet {
 		c.setComnick(comnick);
 		c.setComcon(comcon);
 		c.setComdate(comdate);
-		c.setRecomnum(recomnum);
+		//
 		
 		ud.CommentShow(c);
 		
 		
 		request.setAttribute("postnum", postnum);
 		
-		RequestDispatcher dis=request.getRequestDispatcher("showpost?notenum="+postnum);
-		dis.forward(request, response);
+		response.sendRedirect("showpost?notenum="+postnum);
+		
 		
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

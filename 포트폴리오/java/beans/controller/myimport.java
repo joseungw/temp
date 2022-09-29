@@ -11,37 +11,31 @@ import DAO.UserDAO;
 import beans.Notice;
 
 
-@WebServlet("/mynote.do")
-public class mynote extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
+@WebServlet("/myimport")
+public class myimport extends HttpServlet {
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		String userid=request.getParameter("id");
-//		String category=request.getParameter("sports");
+		String category=request.getParameter("sports");
+		String region=request.getParameter("city");
 		int currentPage=Integer.parseInt(request.getParameter("currentPage"));
-		System.out.println(currentPage);
 		
 		UserDAO ud=UserDAO.getInstance();
+		ArrayList<Notice> list=ud.myImport( category, region,currentPage);
 		
-		ArrayList<Notice> list=ud.MySelect(userid,currentPage);
-		
-		int row=ud.getUseridOfRows(userid);
+		int row=ud.getRegionOfRows(region,category);
 		int nOfPage=row/10;
 		System.out.println(nOfPage);
 		if(row%10>0) {
 			nOfPage++;
 		}
-		System.out.println(nOfPage);
 		request.setAttribute("nPage", nOfPage);
-		
-		request.setAttribute("userid", userid);
-//		request.setAttribute("category", category);
+		request.setAttribute("category", category);
+		request.setAttribute("region", region);
 		request.setAttribute("list", list);
-		request.setAttribute("currentPage", currentPage);
 		
-		RequestDispatcher dis=request.getRequestDispatcher("mynote.jsp");
+		RequestDispatcher dis=request.getRequestDispatcher("boardRegion.jsp");
 		dis.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -28,7 +28,20 @@ public class showpost extends HttpServlet {
 		ResultSet rs=null;
 		UserDAO ud=UserDAO.getInstance();
 		
-		ArrayList<Comment> cmtlist=ud.selCom(postnum);
+		ArrayList<Comment> comAllList=ud.selCom(postnum);
+		
+		ArrayList<Comment> cmtlist=new ArrayList<Comment>();
+		ArrayList<Comment> recomlist=new ArrayList<Comment>();
+		
+		for(int i=0; i<comAllList.size();i++) {
+			if(comAllList.get(i).getRecomnum()==null) {
+				cmtlist.add(comAllList.get(i));
+			}
+			else {
+				recomlist.add(comAllList.get(i));
+			}
+		}
+		
 		
 		try {
 			conn=ud.getConnection();
@@ -58,12 +71,17 @@ public class showpost extends HttpServlet {
 		}
 		request.setAttribute("notice",notice);
 		request.setAttribute("cmt", cmtlist);
+		request.setAttribute("rct",recomlist);
+		
+		
+		//response.sendRedirect("showpost?notenum="+postnum);
+		
 		RequestDispatcher dis=request.getRequestDispatcher("showpost.jsp");
 		dis.forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		this.doGet(request, response);
 	}
 
 }

@@ -20,6 +20,7 @@ public class recomment extends HttpServlet {
 		String comid=request.getParameter("comid");
 		String comnick=request.getParameter("comnick");
 		String comcon=request.getParameter("recomcon");
+		String comnum=request.getParameter("comnum");
 		
 		Calendar now = Calendar.getInstance();
 		int year=now.get(Calendar.YEAR);
@@ -29,8 +30,22 @@ public class recomment extends HttpServlet {
 		int minute=now.get(Calendar.MINUTE);
 		String comdate=""+year+"-"+month+"-"+day+"-"+hour+":"+minute;
 		
-		String comok=request.getParameter("comok");
-		String recomnum=request.getParameter("recomnum");
+		UserDAO ud=UserDAO.getInstance();
+		Comment c=new Comment();
+		
+		c.setPostnum(postnum);
+		c.setComid(comid);
+		c.setComnick(comnick);
+		c.setComcon(comcon);
+		c.setComdate(comdate);
+		c.setRecomnum(comnum);
+		
+		ud.recommentWrite(c);
+		
+		response.sendRedirect("showpost?notenum="+postnum);
+		
+//		RequestDispatcher dis=request.getRequestDispatcher("showpost?notenum="+postnum);
+//		dis.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

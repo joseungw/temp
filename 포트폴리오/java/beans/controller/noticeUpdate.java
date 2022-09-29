@@ -54,8 +54,9 @@ public class noticeUpdate extends HttpServlet {
 		UserDAO ud=UserDAO.getInstance();
 		ud.noticeUpdate(notice);
 		
+		request.setAttribute("notenum", notenum);
 		
-		RequestDispatcher dis=request.getRequestDispatcher("boardmain");
+		RequestDispatcher dis=request.getRequestDispatcher("showpost?notenum="+notenum);
 		dis.forward(request, response);
 	}
 

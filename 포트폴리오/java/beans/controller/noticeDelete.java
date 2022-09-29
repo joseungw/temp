@@ -20,7 +20,8 @@ public class noticeDelete extends HttpServlet {
 		
 		String category=request.getParameter("category");
 		request.setAttribute("category", category);
-		RequestDispatcher dis=request.getRequestDispatcher("boardmain?category="+category);
+		
+		RequestDispatcher dis=request.getRequestDispatcher("boardmain?category="+category+"&currentPage=1");
 		dis.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

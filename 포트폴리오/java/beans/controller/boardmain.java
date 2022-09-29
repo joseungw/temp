@@ -18,19 +18,29 @@ public class boardmain extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		String category=request.getParameter("category");	//°ª È®ÀÎ
 		System.out.println(category);
-//		if(request.getAttribute("category")!=null) {
-//			category=(String)request.getAttribute("category");
-//		}
+		
+		int currentPage=Integer.parseInt(request.getParameter("currentPage"));
+		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
 		UserDAO ud=UserDAO.getInstance();
-		
-		ArrayList<Notice> list=ud.getNotiCate(category);
-		
+		ArrayList<Notice> list=ud.getNotiCate(category,currentPage);
 		request.setAttribute("category", category);
 		request.setAttribute("list", list);
+		
+		int row=ud.getCategoryOfRows(category);
+		int nOfPage=row/10;
+		System.out.println(nOfPage);
+		if(row%10>0) {
+			nOfPage++;
+		}
+		System.out.println(nOfPage);
+		request.setAttribute("nPage", nOfPage);
+		request.setAttribute("currentPage", currentPage);
+		
+		
 		RequestDispatcher dis=request.getRequestDispatcher("board.jsp");
 		dis.forward(request, response);
 	}
