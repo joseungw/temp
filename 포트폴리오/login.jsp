@@ -5,59 +5,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>로그인 페이지</title>
-		<style>
-			body{
-				background:url(test1.jpg);
-				background-size:cover;
-			} 
-			#wrap{
-				width:600px;
-				margin:0 auto;
-				margin-top:130px;
-			}
-			#title{
-				width:300px;
-				text-align:center;
-				margin:0 auto;
-				padding:20px;
-				background-color:rgba(255,255,255,0.7);
-			}
-			#sign{
-				width:300px;
-				margin:0 auto;
-				margin-top:170px;
-				text-align:center;
-				background-color:rgba(255,255,255,0.7);
-				padding:30px;
-			}
-			input {
-				margin:5px;
-			}
-			input[value="LOGIN"]{
-				padding:5px;
-				width:100px;
-				color:#0033FF;
-			}
-			input[value="LOGIN"]:hover{
-				background-color:#0088FF;
-				color:white;
-			}
-			a{
-				text-decoration:none;
-				color:black;
-				font-size:12px;
-			}
-			#title a{
-				font-size:50px;
-			}
-			p{
-				font-size:25px;
-			}
-			.class{
-				height:30px;
-				font-size:15px;
-			}
-		</style>
+		<link rel="stylesheet" href="CSS/login.css">
 	</head>
 	<body>
 		<div id="wrap">

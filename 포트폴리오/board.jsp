@@ -9,117 +9,11 @@
 	<head>
 		<meta charset="utf-8">
 		<title>포트폴리오 랜딩페이지</title>
+		<link rel="stylesheet" href="CSS/board.css">
 		<style>
-			/* *{
-				color:white;
-			}*/
-			body{
-			
-			} 
-			#wrap{
-				width:1000px;
-				margin:0 auto;
-			}
-			#logo{
-				font-size:50px;
-				text-align:center;
-				padding:20px;
-			}
-			#logo a{
-				text-decoration:none;
-				color:#0088FF;
-			}
-			#menu{
-				/* background-color:#0088FF; */
-				text-align:center;
-				font-size:0;
-				padding:0;
-			}
-			
-			#menu a:hover{
-				border-bottom:3px solid white;
-			}
-			#list{
-				display:inline-block;
-				width:198px;
-				height:60px;
-				line-height:60px;
-				border:1px solid #0088FF;
+			#sel option:hover{
 				background-color:#0088FF;
-			}
-			#list a{
-				text-decoration:none;
-				font-size:20px;
-				color:white;
-				font-weight:bold;
-			}
-			/*여기까지 header에 대한 CSS부분  */
-			#main{
-				width:100%;
-			}
-			table{
-				border:3px solid #0088FF;
-				width:100%;
-				margin:0 auto;
-				border-collapse:collapse;
-			}
-			thead th{
-				font-size:20px;
-				background-color:#0088FF;
-				color:white;
-			}
-			tbody tr{
-				text-align:center;
-				border-bottom:2px solid white;
-			}
-			tbody tr:hover{
-				border-bottom:2px solid #0088FF;
-			}
-			#sel{
-				text-align:center;
-				font-size:20px;
-				border: 2px solid #0088FF;
-			    width: 300px;
-			    margin-left: 357px;
-    			margin-top: 25px;
-			}
-			input[type=submit]{
-				border: 2px solid #0088FF;
-			    padding: 3px;
-			    width: 70px;
-			    margin-left: 15px;
-			    padding-top: 4px;
-    			padding-bottom: 2px;
-    			background-color:white;
-    			font-weight: bold;
-			}
-			table td{
-				padding:10px;
-				margin:5px;
-			}
-			.post3{
-				width:140px;
-			}
-			.post1{
-				width:120px;
-			}
-			#postit{
-				background-color:white;
-				border:2px solid #0088FF;
-				padding:4px;
-				font-weight:bold;
-				float:right;
-				margin-bottom: 10px;
-			}
-			#postit:hover{
-				background-color:#0088FF;
-				color:white;
-				border:2px solid black;
-			}
-			#search:hover{
-				border:2px solid black;
-				background-color:#0088FF;
-				color:white;
+				color:black;
 			}
 		</style>
 	</head>
@@ -135,15 +29,15 @@
 				<a href="index.jsp"><b>Sports</b></a>
 			</div>
 			<div id="menu">
-				<div id="list"><a href="boardmain?category=축구">축구</a></div>
-				<div id="list"><a href="boardmain?category=농구">농구</a></div>
-				<div id="list"><a href="boardmain?category=야구">야구</a></div>
-				<div id="list"><a href="boardmain?category=배드민턴">배드민턴</a></div>
-				<div id="list"><a href="boardmain?category=골프">골프</a></div>
+				<div id="list"><a href="boardmain?category=축구&currentPage=1">축구</a></div>
+				<div id="list"><a href="boardmain?category=농구&currentPage=1">농구</a></div>
+				<div id="list"><a href="boardmain?category=야구&currentPage=1">야구</a></div>
+				<div id="list"><a href="boardmain?category=배드민턴&currentPage=1">배드민턴</a></div>
+				<div id="list"><a href="boardmain?category=골프&currentPage=1">골프</a></div>
 			</div>
 			<div id="main">
 				<div id="boardmenu">
-					<form method="get" action="boardregion.do?category=축구">
+					<form method="get" action="boardregion.do">
 						<select name="region" id="sel">
 							<option value="" selected>--지역--</option>
 							<option value="서울">서울</option>
@@ -157,6 +51,7 @@
 						</select>
 						<input type="hidden" name="category" value="${category }">
 						<input type="hidden" name="sports" value="${sports }">
+						<input type="hidden" name="currentPage" value="1">
 						<input id="search" type="submit" value="검색" onclick="return noValue()">
 					</form>
 					
@@ -184,6 +79,20 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<div class="page">
+					<ul>
+					<c:forEach begin="1" end="${nPage }" var="i">
+					<c:choose>
+						<c:when test="${currentPage eq i }">
+							<li ><a>${i }(현재)</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="otherPage"><a href="boardmain?category=${category }&currentPage=${i }&userid=${id }"> ${i } </a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				</ul>
+				</div>
 			</div>
 		</div>
 		<script>

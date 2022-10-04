@@ -5,108 +5,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Insert title here</title>
-		<style>
-			/* *{
-				color:white;
-			}
-			body{
-				background-color:#333333;
-			} */
-			
-			#wrap{
-				width:1000px;
-				margin:0 auto;
-				background-color:white;
-			}
-			#logo{
-				font-size:50px;
-				text-align:center;
-				padding:20px;
-			}
-			#logo a{
-				text-decoration:none;
-				color:#0088FF;
-			}
-			#menu{
-				/* background-color:#0088FF; */
-				text-align:center;
-				font-size:0;
-				padding:0;
-			}
-			#menu a:hover{
-				border-bottom:3px solid white;
-			}
-			#list{
-				display:inline-block;
-				width:198px;
-				height:60px;
-				line-height:60px;
-				border:1px solid #0088FF;
-				background-color:#0088FF;
-			}
-			#list a{
-				text-decoration:none;
-				font-size:20px;
-				color:white;
-				font-weight:bold;
-			}
-			/* 여기까지 상단 리스트 부분 */
-			
-			#postTop{
-				border-bottom:1px solid #0088FF;
-				padding-left:50px;
-				
-			}
-			#postTitle{
-				border-bottom:1px solid #3399FF;
-				padding-left:50px;
-			}
-			#postMain{
-				margin-left: 50px;
-   				padding-top: 25px;
-			}
-			#postTop h2{
-				display:inline-block;
-			}
-			select{
-				border:2px solid #0088FF;
-				font-size:20px;
-				padding:10px;
-				width:10%;
-				margin-bottom: 20px;
-				margin-top: 20px;
-			}
-			#postTitle input{
-				border:2px solid #0088FF;
-				font-size:20px;
-				padding:10px;
-				margin-top:20px;
-				margin-bottom:20px;
-				width:90%;
-			}
-			textarea{
-				width:92%;
-				border:2px solid #0088FF;
-				height:300px;
-				font-size:15px;
-				resize:none;
-			}
-			input[type=submit]{
-				border:2px solid #0088FF;
-				background-color:white;
-				color:#0088FF;
-				padding: 7px;
-				width: 86px;
-			    margin-left: 465px;
-			    margin-top: 35px;
-			}
-			input[type=submit]:hover{
-				background-color:#0088FF;
-				color:white;
-				border:2px solid black;
-			}
-			/* 여기까지 게시판 메인부분 */
-		</style>
+		<link rel="stylesheet" href="CSS/postUpdate.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	</head>
 	<body>
@@ -115,11 +14,11 @@
 				<a href="index.jsp"><b>Sports</b></a>
 			</div>
 			<div id="menu">
-				<div id="list"><a href="boardmain?category=축구">축구</a></div>
-				<div id="list"><a href="boardmain?category=농구">농구</a></div>
-				<div id="list"><a href="boardmain?category=야구">야구</a></div>
-				<div id="list"><a href="boardmain?category=배드민턴">배드민턴</a></div>
-				<div id="list"><a href="boardmain?category=골프">골프</a></div>
+				<div id="list"><a href="boardmain?category=축구&currentPage=1">축구</a></div>
+				<div id="list"><a href="boardmain?category=농구&currentPage=1">농구</a></div>
+				<div id="list"><a href="boardmain?category=야구&currentPage=1">야구</a></div>
+				<div id="list"><a href="boardmain?category=배드민턴&currentPage=1">배드민턴</a></div>
+				<div id="list"><a href="boardmain?category=골프&currentPage=1">골프</a></div>
 			</div>
 			<div id="main">
 				<form method="post" action="noticeUpdate">
