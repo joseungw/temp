@@ -1,0 +1,285 @@
+@charset "utf-8";
+#wrap{
+	width:1000px;
+	margin:0 auto;
+}
+#logo{
+	font-size:50px;
+	text-align:center;
+	padding:20px;
+}
+#logo a{
+	text-decoration:none;
+	color:#0088FF;
+}
+#menu{
+	background-color:#0088FF;
+	text-align:center;
+	font-size:0;
+	padding:0;
+}
+#menu a:hover{
+	border-bottom:3px solid white;
+}
+#list{
+	display:inline-block;
+	width:200px;
+	height:60px;
+	line-height:60px;
+}
+#list a{
+	text-decoration:none;
+	font-size:20px;
+	color:white;
+	font-weight:bold;
+}
+/* 여기까지 상단 리스트 부분 */
+
+#postTop{
+	border-bottom:1px solid #0088FF;
+	padding-left:50px;
+	
+}
+#postTop h2{
+	display:inline-block;
+	font-size:25px;
+	margin:15px;
+}
+#postTitle{
+	border-bottom:1px solid #3399FF;
+	padding-left:65px;
+	padding-right:65px;
+}
+#postTitle h2{
+	font-size:22px;
+	padding:0;
+	margin:0;
+	margin-top:12px;
+	margin-bottom:5px;
+}
+#notedate{
+	color:#999;
+}
+#postTitle p{
+	display:inline-block;
+	font-size:14px;
+	margin:0;
+	margin-bottom:12px;
+}
+#postMain{
+	padding:25px 65px 25px 65px;
+				border-bottom:1px solid #3399FF;
+				min-height:250px;
+}
+#line{
+	font-weight:900;
+}
+/* 여기까지 게시판 메인부분 */
+#comTitle{
+	border-bottom:1px solid #3399FF;
+	padding-left:65px;
+}
+#comTitle p, #combtn{
+	display:inline-block;
+}
+#combtn{
+	border:2px solid #3399FF;
+	padding:6px;
+	margin-left:15px;
+	cursor: pointer;
+}
+#combtn:hover{
+	border:2px solid black;
+	color:white;
+	background-color:#3399FF;
+}
+#comWrite{
+	resize:none;
+	border:2px solid #3399FF;
+	width: 620px;
+ 			min-height: 100px;
+ 			margin-left: 54px;
+ 			margin-top: -40px;
+}
+#combox{
+	margin: 5px 65px;
+	padding:0;
+	display:none;
+}
+#comok{
+	padding: 3px;
+    width: 70px;
+    margin-left: 612px;
+    border:2px solid #3399FF;
+    background-color:white;
+}
+#comok:hover{
+	border:2px solid black;
+	background-color:#3399FF;
+	color:white;
+}
+ul{
+	margin:0;
+	border-bottom:1px solid #99CCFF;
+}
+ul li{
+	list-style:none;
+	padding-left:25px;
+}
+#li1, #li2, #li3{
+	display:inline-block;
+	font-size:14px;
+}
+#li1{
+	width:200px;
+}
+#li1 p{
+	display:inline-block;
+	margin-left:45px;
+	color:#999;
+	font-size:12px;
+	cursor: pointer;
+}
+#li2{
+	width: 490px;
+}
+#li3{
+	width: 170px;
+	color:#999;
+	margin-left: 8px;
+}
+#li3 p{
+	display:inline-block;
+	margin-left:30px;
+	color:black;
+	padding:5px;
+}
+.recombox{
+	display:none;
+	margin-left:20px;
+	margin-top: -15px;
+	font-size:14px;
+}
+#recomWrite{
+	resize: none;
+    border: 2px solid #3399FF;
+    width: 620px;
+    min-height: 100px;
+    margin-left: 70px;
+				margin-top: -35px;
+}
+#recomok{
+	padding: 3px;
+    width: 70px;
+    margin-left: 628px;
+    border: 2px solid #3399FF;
+    background-color: white;
+}
+#commentDelete{
+	border:2px solid #3399FF;
+	color:#3399FF;
+	display:inline-block;
+	width:70px;
+	text-align: center;
+	line-height: 30px;
+	position: absolute;
+    right: -3px;
+    bottom: -38px;
+}
+#commentDelete:hover{
+	background-color:#3399FF;
+	border: 2px solid black;
+	color:white;
+}
+.other{
+	display:none;
+	float:right;
+	position: relative;
+}
+.other p{
+	display:inline-block;
+	margin-left: 40px;
+	
+}
+.view{
+	line-height:3px;
+}
+/* 햄버거 버튼 시작 */
+#burger{
+	display:inline-block;
+	height:50px;
+}
+#burger h1{
+	display:inline-block;
+	margin-left: 55px;
+	cursor: pointer;
+}
+.bgbtn{
+	display:none;
+}
+.bgbtn a{
+	text-decoration:none;
+	color:black;
+	border:2px solid #3399FF;
+	padding:5px;
+}
+.bgbtn a:last-child{
+	margin-left:-8px;
+}
+.bgbtn a:hover{
+	border:2px solid black;
+	color:white;
+	background-color:#3399FF;
+}
+/* 답글 보여지는 부분 */
+#recomment p{
+	display:inline-block;
+	margin: 0;
+}
+#recomment{
+	margin-bottom:10px;
+	margin-left: 30px;
+}
+#li4{
+	width:200px;
+	font-size:14px;
+	display:inline-block;
+}
+#li5{
+	font-size:14px;
+	width:490px;
+	display:inline-block;
+}
+#li6{
+	font-size:14px;
+	color:#999;
+	display:inline-block;
+}
+#li6 p{
+	color:black;
+	margin-left: 25px;
+	
+}
+.other2{
+	display:none;
+	float:right;
+	position: relative;
+}
+#commentDelete2{
+	border:2px solid #3399FF;
+	color:#3399FF;
+	display:inline-block;
+	width:70px;
+	text-align: center;
+	line-height: 30px;
+	position: absolute;
+    right: -14px;
+ 			bottom: -30px;
+}
+#commentDelete2:hover{
+	background-color:#3399FF;
+	border: 2px solid black;
+	color:white;
+}
+/* 햄버거 버튼 끝 */
+/* ====================================================== */

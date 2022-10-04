@@ -1,0 +1,123 @@
+@charset "utf-8";
+#wrap{
+	width:1000px;
+	margin:0 auto;
+}
+#logo{
+	font-size:50px;
+	text-align:center;
+	padding:20px;
+}
+#logo a{
+	text-decoration:none;
+	color:#0088FF;
+}
+#menu{
+	/* background-color:#0088FF; */
+	text-align:center;
+	font-size:0;
+	padding:0;
+	background-color:#0088FF;
+}
+
+#menu a:hover{
+	border-bottom:3px solid white;
+}
+#list{
+	display:inline-block;
+	width:200px;
+	height:60px;
+	line-height:60px;
+}
+#list a{
+	text-decoration:none;
+	font-size:20px;
+	color:white;
+	font-weight:bold;
+}
+/*여기까지 header에 대한 CSS부분  */
+#main{
+	width:100%;
+}
+table{
+	border:3px solid #0088FF;
+	width:100%;
+	margin:0 auto;
+	border-collapse:collapse;
+}
+thead th{
+	font-size:20px;
+	background-color:#0088FF;
+	color:white;
+}
+tbody tr{
+	text-align:center;
+	border-bottom:2px solid white;
+}
+tbody tr:hover{
+	border-bottom:2px solid #0088FF;
+}
+#sel{
+	text-align:center;
+	font-size:20px;
+	border: 2px solid #0088FF;
+    width: 300px;
+    margin-left: 357px;
+	margin-top: 25px;
+}
+input[type=submit]{
+	border: 2px solid #0088FF;
+    padding: 3px;
+    width: 70px;
+    margin-left: 15px;
+    padding-top: 4px;
+	padding-bottom: 2px;
+	background-color:white;
+	font-weight: bold;
+}
+table td{
+	padding:10px;
+	margin:5px;
+}
+.post3{
+	width:140px;
+}
+.post1{
+	width:120px;
+}
+#postit{
+	background-color:white;
+	border:2px solid #0088FF;
+	padding:4px;
+	font-weight:bold;
+	float:right;
+	margin-bottom: 10px;
+}
+#postit:hover{
+	background-color:#0088FF;
+	color:white;
+	border:2px solid black;
+}
+#search:hover{
+	border:2px solid black;
+	background-color:#0088FF;
+	color:white;
+}
+/* 페이지 갯수 현재페이지 부분 */
+.page ul{
+	margin:20px;
+	text-align: center;
+	padding:0;
+}
+.page ul li{
+	display:inline-block;
+}
+.page ul li a{
+	text-decoration:none;
+}
+.otherPage{
+	width:20px;
+}
+.otherPage:hover{
+	border-bottom:2px solid #0088FF;
+}

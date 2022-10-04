@@ -1,0 +1,100 @@
+@charset "utf-8";
+#wrap{
+	width:1000px;
+	margin:0 auto;
+	background-color:white;
+}
+#logo{
+	font-size:50px;
+	text-align:center;
+	padding:20px;
+}
+#logo a{
+	text-decoration:none;
+	color:#0088FF;
+}
+#menu{
+	background-color:#0088FF;
+	font-size:0;
+	padding:0;
+}
+#container{
+		display:none;
+}
+#list a:hover{
+	border-bottom:3px solid white;
+}
+#list{
+	display:inline-block;
+	width:200px;
+	height:60px;
+	line-height:60px;
+	text-align:center;
+}
+#list a{
+	text-decoration:none;
+	font-size:20px;
+	color:white;
+	font-weight:bold;
+}
+/* 여기까지 기본 헤더부분 */
+#loginbox{
+	width:200px;
+	border:1px solid #0088FF;
+	float:right;
+	display:inline-block;
+	height:318px;
+}
+#loginbox input{
+	width:120px;
+	height:40px;
+	margin-top:20px;
+	margin-left: 40px;
+	font-size:20px;
+	background-color:white;
+	border:2px solid black;
+	color:#0088FF;
+	font-weight:bold;
+}
+#loginbox input:hover{
+	background-color:#0088FF;
+	color:white;
+	font-weight:bold;
+}
+#loginbox p{
+	text-align:center;
+}
+#loginbox a{
+	text-decoration:none;
+	color:#0088FF;
+	margin-left: 65px;
+    border-bottom: 2px solid;
+}
+#radius{
+	display:inline-block;
+}
+.slide{
+	width:798px;
+	height:320px;
+}
+#mynote, #myinfo{
+	display:inline-block;
+	border: 2px solid black;
+	width: 220px;
+	height: 80px;
+	text-align:center;
+ 	line-height: 80px;
+    margin-left: 116px;
+    background-color:#0088FF;
+	border-radius:15px;
+}
+#mynote:hover, #myinfo:hover{
+	background-color:#0077FF;
+}
+#myinfo a:hover, #mynote a:hover{
+	border-bottom:2px solid white;
+}
+#myinfo a,#mynote a{
+	text-decoration:none;
+	color:white;
+}
