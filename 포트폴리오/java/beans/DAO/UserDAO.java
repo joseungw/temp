@@ -16,9 +16,9 @@ public class UserDAO {
 	public static UserDAO instance=new UserDAO();
 	
 	public static UserDAO getInstance() {
-		return instance;			//½Ì±ÛÅæ
+		return instance;			//ì‹±ê¸€í†¤ìœ¼ë¡œ ìƒˆë¡œìš´ ê°ì²´ ìƒì„±ì œí•œ 
 	}
-	//Ä¿³Ø¼Ç ¿¬°á Ã³¸®¹®
+	//ê±°ë„¥ì…˜ ì—°ê²° ì²˜ë¦¬ë¬¸
 	public Connection getConnection() throws Exception {
 		Connection conn=null;
 		String url="jdbc:mysql://127.0.0.1:3306/project";
@@ -28,7 +28,7 @@ public class UserDAO {
 		conn=DriverManager.getConnection(url,dbid,dbpw);
 		return conn;
 	}
-	//·Î±×ÀÎ ÀÎÁõ Ã³¸®
+	//ë¡œê·¸ì¸ ì¸ì¦ ì²˜ë¦¬ ê¸°ëŠ¥
 	public int userCheak(String id,String password) {
 		int result=-1;
 		String sql="select password from user where id=?;";
@@ -40,30 +40,30 @@ public class UserDAO {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1,id);
 			rs=pstmt.executeQuery();
-			if(rs.next()) {	//ÇØ´ç ¾ÆÀÌµğ°¡ Á¸Àç ÇÑ´Ù¸é
-				if(rs.getString("password").equals(password) && rs.getString("password")!=null) {	//ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ ÇÑ´Ù¸é
-					result=1;	//¾ÆÀÌµğ ºñ¹Ğ¹øÈ£ ÀÏÄ¡ÇÏ´Â °æ¿ì
+			if(rs.next()) {	//í•´ë‹¹ ì•„ì´ë””ê°€ ì¡´ì¬ í•œë‹¤ë©´
+				if(rs.getString("password").equals(password) && rs.getString("password")!=null) {	//ï¿½ï¿½Ğ¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½Ñ´Ù¸ï¿½
+					result=1;	//ì•„ì´ë””ì™€ ë¹„ë°€ë²ˆí˜¸ ë‘˜ë‹¤ ì¼ì¹˜í•˜ëŠ” ê²½ìš°
 				}else {
-					result=0;	//ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾ÊÀº °æ¿ì
+					result=0;	//ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜ í•˜ì§€ ì•Šì€ ê²½ìš°
 				}
 			}else {
-				result=-1;		//¾ÆÀÌµğ°¡ ÀÏÄ¡ÇÏÁö ¾ÊÀº °æ¿ì
+				result=-1;		//ì•„ì´ë””ê°€ ì¼ì¹˜ í•˜ì§€ ì•Šì€ ê²½ìš°
 			}
 		}catch(Exception e) {
-			e.printStackTrace();
+			System.out.println("UserDAO.usercheak() ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° ì¤‘ ì˜¤ë¥˜ : "+e);
 		}finally {
 			try {
 				if(rs!=null)rs.close();
 				if(pstmt!=null)pstmt.close();
 				if(conn!=null)conn.close();
 			}catch(Exception ex) {
-				ex.printStackTrace();
+				System.out.println("UserDAO.usercheak() ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° í•´ì œ ì¤‘ ì˜¤ë¥˜ : "+ex);
 			}
 			
 		}
 		return result;
 	}
-	//È¸¿ø°¡ÀÔ¿¡ ¾ÆÀÌµğ Áßº¹Ã¼Å© ±¸Çö ±â´É
+	//íšŒì›ê°€ì…ì— ì•„ì´ë”” ì¤‘ë³µì²´í¬ êµ¬í˜„ ê¸°ëŠ¥
 	public boolean idCheak(String id) {
 		String sql="select * from user where id=?";
 		boolean cheak = false;
@@ -78,23 +78,23 @@ public class UserDAO {
 			
 			cheak=rs.next();
 		}catch(Exception e) {
-			e.printStackTrace();
+			System.out.println("UserDAO.idCheak ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° ì¤‘ ì˜¤ë¥˜ : "+e);
 		}finally {
 			try {
 				if(rs!=null)rs.close();
 				if(pstmt!=null)pstmt.close();
 				if(conn!=null)conn.close();
 			}catch(Exception ex) {
-				ex.printStackTrace();
+				System.out.println("UserDAO.idCheak ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° í•´ì œ ì¤‘ ì˜¤ë¥˜ : "+ex);
 			}
 			
 		}
 		return cheak;
 	}
-	//È¸¿ø°¡ÀÔ¿¡ ´Ğ³×ÀÓ Áßº¹Ã¼Å© ±¸Çö ±â´É
+	//íšŒì›ê°€ì…ì— ë‹‰ë„¤ì„ ì¤‘ë³µì²´í¬ êµ¬í˜„ ê¸°ëŠ¥ // booleaníƒ€ì…
 		public boolean nickCheak(String nick) {
 			String sql="select * from user where nick=?";
-			boolean cheak = false;
+			boolean check = false;
 			Connection conn=null;
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
@@ -104,9 +104,9 @@ public class UserDAO {
 				pstmt.setString(1,nick);
 				rs=pstmt.executeQuery();
 				
-				cheak=rs.next();
+				check=rs.next();
 			}catch(Exception e) {
-				e.printStackTrace();
+				System.out.println("UserDAO.nickCheak");
 			}finally {
 				try {
 					if(rs!=null)rs.close();
@@ -117,9 +117,9 @@ public class UserDAO {
 				}
 				
 			}
-			return cheak;
+			return check;
 		}
-	//»ç¿ëÀÚ Á¤º¸ Á¶È¸
+	//ì‚¬ìš©ì ì •ë³´ ì¡°íšŒ // Useríƒ€ì…
 	public User getUser(String id) {
 		User u=new User();
 		String sql="select * from user where id=?";
@@ -153,6 +153,7 @@ public class UserDAO {
 		}
 		return u;
 	}
+	//ì‚¬ìš©ì ì •ë³´ ìˆ˜ì •ì„ ìœ„í•œ ê¸°ëŠ¥ ë¶€ë¶„
 	public void UserUpdate(User u) {
 		String sql="update User set name=?, phone=?, id=?, password=?, nick=?,";
 		sql+=" city=?, sports=? where num=?";
@@ -184,9 +185,9 @@ public class UserDAO {
 		}
 	}
 	
-//	=========================°Ô½ÃÆÇ¿¡ ´ëÇÑ ºÎºĞ============================
+//	=========================ê²Œì‹œíŒì— ëŒ€í•œ ë¶€ë¶„============================
 	
-	//°Ô½ÃÆÇ Ä«Å×°í¸®·Î ºĞ·ù ÇØ¼­ º¸¿©ÁÖ±â ºÎºĞ
+	//ê²Œì‹œíŒ ì¹´í…Œê³ ë¦¬ë¡œ ë¶„ë¥˜í•´ì„œ ë³´ì—¬ì£¼ê¸° ê¸°ëŠ¥ êµ¬í˜„ // descë¡œ ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ ë³´ì—¬ì£¼ê¸° êµ¬í˜„
 	public ArrayList<Notice> getNotiCate(String category, int currentPage) {
 		ArrayList<Notice> list=new ArrayList<Notice>();
 		Notice nt=null;
@@ -228,7 +229,7 @@ public class UserDAO {
 		}
 		return list;
 	}
-	//°Ô½ÃÆÇ Áö¿ª°ú Ä«Å×·Î¸®·Î ºĞ·ù ÇØ¼­ º¸¿©ÁÖ±â ºÎºĞ
+	//ê²Œì‹œíŒ ì§€ì—­ê³¼ ì¹´í…Œê³ ë¦¬ë¡œ ë¶„ë¥˜í•´ì„œ ë³´ì—¬ì£¼ê¸° ê¸°ëŠ¥ êµ¬í˜„ // ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ
 		public ArrayList<Notice> selectTwo(String category,String region,int currentPage) {
 			ArrayList<Notice> list=new ArrayList<Notice>();
 			Notice nt=null;
@@ -271,7 +272,7 @@ public class UserDAO {
 			}
 			return list;
 		}
-	//°Ô½Ã¹° ¾÷µ¥ÀÌÆ® ±â´É
+	//ê²Œì‹œë¬¼ ì—…ë°ì´íŠ¸ ê¸°ëŠ¥
 	public void noticeUpdate(Notice notice) {
 		String sql="update notice set category=?, notedate=?, ";
 		sql+="title=?, contents=?, region=? where notenum=?";
@@ -298,7 +299,7 @@ public class UserDAO {
 			}
 		}
 	}
-	//°Ô½Ã¹° »èÁ¦ÇÏ´Â ±â´É
+	//ê²Œì‹œë¬¼ ì‚­ì œí•˜ëŠ” ê¸°ëŠ¥
 	public void noticeDelete(String notenum) {
 		String sql="delete from notice where notenum=?";
 		Connection conn=null;
@@ -319,7 +320,7 @@ public class UserDAO {
 			}
 		}
 	}
-	//°Ô½Ã¹° ¼öÁ¤À» À§ÇÑ ¾÷µ¥ÀÌÆ® ±â´É ±¸Çö ºÎºĞ(µ¥ÀÌÅÍº£ÀÌ½º °³º° Á¶È¸ ±â´É)
+	//ê²Œì‹œë¬¼ ìˆ˜ì •ì„ ìœ„í•œ ì—…ë°ì´íŠ¸ ê¸°ëŠ¥ êµ¬í˜„ ë¶€ë¶„(ë°ì´í„° ë² ì´ìŠ¤ì—ì„œ notenumìœ¼ë¡œ ê°œë³„ì¡°íšŒ ê¸°ëŠ¥)
 	public Notice selectNotice(String notenum) {
 		Notice notice=null;
 		String sql="select * from notice where notenum=?";
@@ -355,7 +356,7 @@ public class UserDAO {
 		}
 		return notice;
 	}
-	//³»°¡ ¿Ã¸° °Ô½Ã¹° º¸±â ±â´É (µ¥ÀÌÅÍº£ÀÌ½º¿¡¼­ ³» ¾ÆÀÌµğ·Î °Ë»ö)
+	//ë‚´ê°€ ì˜¬ë¦° ê²Œì‹œë¬¼ ë³´ê¸° ê¸°ëŠ¥ (ë°ì´í„° ë² ì´ìŠ¤ì—ì„œ ë‚´ ì•„ì´ë””ë¡œ ê²€ìƒ‰)
 	public ArrayList<Notice> MySelect(String userid, int currentPage) {
 		ArrayList<Notice> list=new ArrayList<Notice>();
 		Notice nt=null;
@@ -397,7 +398,7 @@ public class UserDAO {
 		}
 		return list;
 	}
-	//³» ½ºÆ÷Ã÷Á¾¸ñ°ú Áö¿ª¸¸ ³ª¿À´Â °Ô½Ã¹° ±â´É
+	//ë‚´ê°€ ì§€ì •í•œ ì¹´í…Œê³ ë¦¬ì™€ ì§€ì—­ìœ¼ë¡œë§Œ ê²Œì‹œë¬¼ ë³´ì—¬ì£¼ëŠ” ê¸°ëŠ¥ 
 	public ArrayList<Notice> myImport( String category, String region, int currentPage) {
 		ArrayList<Notice> list=new ArrayList<Notice>();
 		Notice mynt=null;
@@ -440,9 +441,9 @@ public class UserDAO {
 		}
 		return list;
 	}
-//		=========================´ñ±Û¿¡ ´ëÇÑ ºÎºĞ============================
+//		========================ëŒ“ê¸€ì— ëŒ€í•œ ë¶€ë¶„============================
 	
-//´ñ±Û º¸¿©ÁÖ±â ºÎºĞ
+//ëŒ“ê¸€ ë³´ì—¬ì£¼ê¸° ë¶€ë¶„
 	public ArrayList<Comment> selCom(String postnum) {
 		ArrayList<Comment> cmlist=new ArrayList<Comment>();
 		Comment cmt=null;
@@ -481,7 +482,7 @@ public class UserDAO {
 		}
 		return cmlist;
 	}
-	//´ñ±Û ÀÛ¼ºÇÏ´Â ºÎºĞ
+	//ëŒ“ê¸€ ì‘ì„± í•˜ëŠ” ë¶€ë¶„
 	public void CommentShow(Comment c) {
 		String sql="insert into comment (postnum,comid,comnick,comcon,comdate,recomnum) ";
 		sql+="values (?,?,?,?,?,?)";
@@ -509,7 +510,7 @@ public class UserDAO {
 			}
 		}
 	}
-	//´ä±Û º¸¿©ÁÖ´Â ºÎºĞ
+	//ë‹µê¸€ ë³´ì—¬ì£¼ëŠ” ë¶€ë¶„
 	public ArrayList<Comment> selectRecomment(int recomnum) {
 		ArrayList<Comment> recmtlist=new ArrayList<Comment>();
 		Comment recmt=null;
@@ -548,7 +549,7 @@ public class UserDAO {
 		}
 		return recmtlist;
 	}
-	//´ä±Û ÀÛ¼º ºÎºĞ
+	//ë‹µê¸€ ì‘ì„± ë¶€ë¶„
 	public void recommentWrite(Comment c) {
 		String sql="insert into comment (postnum,comid,comnick,comcon,comdate,recomnum) ";
 		sql+="values (?,?,?,?,?,?)";
@@ -576,7 +577,7 @@ public class UserDAO {
 			}
 		}
 	}
-	//´ñ±Û »èÁ¦ ±â´É 
+	//ëŒ“ê¸€ ì‚­ì œ ê¸°ëŠ¥
 	public void commentDelete(String comnum) {
 		String sql="delete from comment where comnum=?";
 		Connection conn=null;
@@ -597,8 +598,8 @@ public class UserDAO {
 			}
 		}
 	}
-	//========================°Ô½ÃÆÇ ÆäÀÌÁö ³Ñ±â±â ±â´É============================
-	//Ä«Å×°í¸®ÀÇ °¹¼ö¸¦ °¡Á®¿À´Â µ¿ÀÛ
+	//=======================ê²Œì‹œíŒ í˜ì´ì§€ ë„˜ê¸°ê¸° ê¸°ëŠ¥============================
+	//ì¹´í…Œê³ ë¦¬ì˜ ê°¯ìˆ˜ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë™ì‘
 	public int getCategoryOfRows(String category) {
 		String sql="select count(notenum) from notice where category=?;";
 		int numberOfRows=0;
@@ -613,19 +614,19 @@ public class UserDAO {
 			rs.next();
 			numberOfRows=Integer.parseInt(rs.getString(1));
 		}catch(Exception e) {
-			System.out.println("UserDAO.getCategoryOfRows Á¢¼Ó Áß ¿À·ù¹ß»ı : "+e);
+			System.out.println("UserDAO.getCategoryOfRows ì ‘ì† ì¤‘ ì˜¤ë¥˜ ë°œìƒ : "+e);
 		}finally {
 			try {
 				if(rs!=null)rs.close();
 				if(pstmt!=null)pstmt.close();
 				if(conn!=null)conn.close();
 			}catch(Exception ex) {
-				System.out.println("UserDAO.getCategoryOfRows Á¾·á Áß ¿À·ù¹ß»ı : "+ex);
+				System.out.println("UserDAO.getCategoryOfRows ì¢…ë£Œ ì¤‘ ì˜¤ë¥˜ ë±”ìƒ : "+ex);
 			}
 		}
 		return numberOfRows;
 	}
-	//¾ÆÀÌµğ·Î°Ë»öÇÏ¿© ÆäÀÌÁö °¹¼ö¸¦ °¡Á®¿À´Â µ¿ÀÛ
+	//ì•„ì´ë””ë¡œ ê°¯ìˆ˜ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë™ì‘
 	public int getUseridOfRows(String userid) {
 		String sql="select count(notenum) from notice where userid=?;";
 		int numberOfRows=0;
@@ -640,19 +641,19 @@ public class UserDAO {
 			rs.next();
 			numberOfRows=Integer.parseInt(rs.getString(1));
 		}catch(Exception e) {
-			System.out.println("UserDAO.getCategoryOfRows Á¢¼Ó Áß ¿À·ù¹ß»ı : "+e);
+			System.out.println("UserDAO.getCategoryOfRows ì ‘ì† ì¤‘ ì˜¤ë¥˜ ë°œìƒ : "+e);
 		}finally {
 			try {
 				if(rs!=null)rs.close();
 				if(pstmt!=null)pstmt.close();
 				if(conn!=null)conn.close();
 			}catch(Exception ex) {
-				System.out.println("UserDAO.getCategoryOfRows Á¾·á Áß ¿À·ù¹ß»ı : "+ex);
+				System.out.println("UserDAO.getCategoryOfRows ì¢…ë£Œ ì¤‘ ì˜¤ë¥˜ ë±”ìƒ : "+ex);
 			}
 		}
 		return numberOfRows;
 	}
-	//Ä«Å×°í¸®¿Í Áö¿ªÀ» °°ÀÌ °Ë»öÇÏ´Â  ÆäÀÌÁö °¹¼ö¸¦ °¡Á®¿À´Â µ¿ÀÛ
+	//ì¹´í…Œê³ ë¦¬ì™€ ì§€ì—­ì„ ê°™ì´ ê²€ìƒ‰í•˜ëŠ” í˜ì´ì§€ ê°¯ìˆ˜ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë™ì‘
 	public int getRegionOfRows(String region,String category) {
 		String sql="select count(notenum) from notice where category=? and region=?;";
 		int numberOfRows=0;
@@ -668,14 +669,14 @@ public class UserDAO {
 			rs.next();
 			numberOfRows=Integer.parseInt(rs.getString(1));
 		}catch(Exception e) {
-			System.out.println("UserDAO.getRegionOfRows Á¢¼Ó Áß ¿À·ù¹ß»ı : "+e);
+			System.out.println("UserDAO.getRegionOfRows ì ‘ì† ì¤‘ ì˜¤ë¥˜ ë°œìƒ : "+e);
 		}finally {
 			try {
 				if(rs!=null)rs.close();
 				if(pstmt!=null)pstmt.close();
 				if(conn!=null)conn.close();
 			}catch(Exception ex) {
-				System.out.println("UserDAO.getRegionOfRows Á¾·á Áß ¿À·ù¹ß»ı : "+ex);
+				System.out.println("UserDAO.getRegionOfRows ì¢…ë£Œ ì¤‘ ì˜¤ë¥˜ ë±”ìƒ : "+ex);
 			}
 		}
 		return numberOfRows;
