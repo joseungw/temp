@@ -49,13 +49,13 @@ public class notice extends HttpServlet {
 			pstmt.executeUpdate();
 			
 		}catch(Exception e) {
-			System.out.println("µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á Áß ¿À·ù : "+e);
+			System.out.println("noticeì—ì„œ ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° ì¤‘ ì˜¤ë¥˜ : "+e);
 		}finally {
 			try {
 				if(pstmt!=null)pstmt.close();
 				if(conn!=null)conn.close();
 			}catch(Exception ex) {
-				System.out.println("µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á ÇØÁ¦ Áß ¿À·ù : "+ex);
+				System.out.println("noticeì—ì„œ ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° í•´ì œ ì¤‘ ì˜¤ë¥˜ : "+ex);
 			}
 		}
 		int row=ud.getCategoryOfRows(category);
@@ -67,7 +67,7 @@ public class notice extends HttpServlet {
 		request.setAttribute("nPage", nOfPage);
 		request.setAttribute("category", category);
 		request.setAttribute("currentPage", 1);
-//		RequestDispatcher dis=request.getRequestDispatcher("boardmain?category="+category+"&currentPage=1");
+		
 		RequestDispatcher dis=request.getRequestDispatcher("boardmain?category="+category+"&currentPage=1");
 		dis.forward(request, response);
 	}

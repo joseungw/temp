@@ -16,7 +16,7 @@ import DAO.UserDAO;
 public class idCheck extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doget½ÇÇà");
+		
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		String id=request.getParameter("id");

@@ -11,9 +11,9 @@ public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doget½ÇÇà");
+		
 		HttpSession sess=request.getSession();
-		sess.invalidate();	//¼¼¼ÇÀ» ÃÊ±âÈ­ ÇÏ´Â ¸Ş¼Òµå
+		sess.invalidate();	//ì„¸ì…˜ì„ ì´ˆê¸°í™” í•˜ëŠ” ë©”ì†Œë“œ //ë¡œê·¸ ì•„ì›ƒ
 		RequestDispatcher dis=request.getRequestDispatcher("index.jsp");
 		dis.forward(request, response);
 	}

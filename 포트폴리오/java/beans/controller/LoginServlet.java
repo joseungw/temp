@@ -28,12 +28,12 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String id=request.getParameter("id");
 		String pw=request.getParameter("pw");
-		System.out.println("ÆĞ·¯¹ÌÅÍ ÀÜ·ù : "+id+","+pw);
+		System.out.println("ï¿½Ğ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ü·ï¿½ : "+id+","+pw);
 		UserDAO ud=UserDAO.getInstance();
 
 		result=ud.userCheak(id, pw);
 	
-		//1: ·Î±×ÀÎ ¼º°ø  0: ºñ¹Ğ¹øÈ£ Æ²¸² -1: ¾ÆÀÌµğ ¾øÀ½
+		//1: ë¡œê·¸ì¸ ì„±ê³µ 0: ë¹„ë°€ë²ˆí˜¸ í‹€ë¦¼ -1 : ì•„ì´ë”” ì—†ìŒ
 		System.out.println(result);
 		if(result==1) {
 			User u=ud.getUser(id);
@@ -50,16 +50,17 @@ public class LoginServlet extends HttpServlet {
 			request.setAttribute("u", u);
 			url="index.jsp";
 		}else if(result==0) {
-			//ºñ¹Ğ¹øÈ£°¡ Æ²¸± °æ¿ì
+			//ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦´ ê²½ìš°
 			url="error.jsp";
-			request.setAttribute("message","<script>alert('ºñ¹Ğ¹øÈ£°¡ ¸ÂÁö ¾Ê½À´Ï´Ù. ´Ù½Ã ÀÔ·Â ÇØÁÖ¼¼¿ä.');location.href='login.do';</script>");
+			request.setAttribute("message","<script>alert('ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”.');location.href='login.do';</script>");
 			
 		}else if(result==-1) {
 			url="error.jsp";
-			request.setAttribute("message","<script>alert('¾ÆÀÌµğ°¡ Á¸Àç ÇÏÁö ¾Ê½À´Ï´Ù.');location.href='login.do';</script>");
+			request.setAttribute("message","<script>alert('ì•„ì´ë””ê°€ ì¡´ì¬ í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.');location.href='login.do';</script>");
 		}
-		//·Î±×ÀÎ ¼º°ø °æ¿ì main.jsp·Î ÀÌµ¿ //¾ÆÀÌµğ ºñ¹Ğ¹øÈ£°¡ Æ²¸± °æ¿ì(result°¡ 0ÀÌ³ª-1ÀÎ°æ¿ì error.jsp¸¦ °æÀ¯ÇÏ¿©
-		//´Ù½Ã ·Î±×ÀÎ ¼­ºí¸´À¸·Î µ¹¾Æ¿À´Â ¹æ¹ı**(»õ·Î°íÄ§À» ´­·¶À» °æ¿ì request°ª ÃÊ±âÈ­ÇÏ±â À§ÇØ¼­)
+		//ë¡œê·¸ì¸ ì„±ê³µì˜ ê²½ìš° index.jspë¡œ ì´ë™ //ì•„ì´ë”” ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦´ê²½ìš° (resultê°€ 0ì´ë‚˜ -1ì¸ê²½ìš° error.jspë¥¼ ê²½ìœ í•˜ì—¬
+		//ë‹¤ì‹œ ë¡œê·¸ì¸ ì„œë¸”ë¦¿ìœ¼ë¡œ ëŒì•„ì˜¤ëŠ” ë°©ë²• **(ìƒˆë¡œê³ ì¹¨ì„ ëˆŒë €ì„ê²½ìš° requestê°’ ì´ˆê¸°í™”í•˜ê¸° ìœ„í•´ì„œ)
+		//ê²½ìœ ë¥¼ ì•ˆí–ˆì„ê²½ìš° ë¡œê·¸ì¸ ì‹¤íŒ¨ì‹œì—ë„ requestê°’ì´ ë‚¨ì•„ìˆì–´ ìƒˆë¡œê³ ì¹¨ì„ í•  ê²½ìš°ì—ë„ ë˜‘ê°™ì€ alertì´ ëœ¸.
 		
 		
 		RequestDispatcher dis=request.getRequestDispatcher(url);

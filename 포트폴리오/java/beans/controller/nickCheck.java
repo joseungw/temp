@@ -18,7 +18,7 @@ import DAO.UserDAO;
 public class nickCheck extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doGet½ÇÇà");
+		
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		String nick=request.getParameter("nick");
