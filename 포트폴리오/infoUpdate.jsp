@@ -14,9 +14,9 @@
 				<h1>sports</h1>
 				<form method="post" action="infoUpdate" name="frm">
 					<b>비밀번호</b><br>
-					<input type="password" name="pass" placeholder="특수문자,영문,숫자 최소 8자"><br>
+					<input type="password" name="password" placeholder="특수문자,영문,숫자 최소 8자"><br>
 					<b>비밀번호 확인</b><br>
-					<input type="password" name="phone" placeholder="- 빼고 숫자만 적어주세요.">
+					<input type="password" placeholder="- 빼고 숫자만 적어주세요.">
 					<b>활동지역</b><br>
 					<input type="hidden" id="city" value="${u.getCity() }">
 					<select name="city" id="sel2">
@@ -41,7 +41,6 @@
 					<input type="hidden" name="name" value="${name }">
 					<input type="hidden" name="nick" value="${nick }">
 					<input type="hidden" name="phone" value="${phone }">
-					<input type="hidden" name="password" value="${password }">
 					<input type="hidden" name="id" value="${id }">
 					<input type="hidden" name="num" value="${num }">
 					<input type="submit" value="정보수정 완료하기"id="ok" onclick="return joinCheck()">

@@ -8,7 +8,7 @@
 		<title>포트폴리오 랜딩페이지</title>
 		<link rel="stylesheet" href="CSS/index.css">
 		<style>
-			@media all and (max-width:960px){
+			/* @media all and (max-width:960px){
 				#wrap{
 					width:90%;
 				}
@@ -39,19 +39,19 @@
 					margin-top:18px;
 					margin-left:25px;
 				}
-			
+			 */
 				/* label 중에 for가 trigger인 항목 */
-				label[for=trigger] {
+				/* label[for=trigger] {
 				    /* border: 1px solid red; */
-				    width: 30px;
+				    /* width: 30px;
 				    height: 20px;
 				    display: block;
 				    position: relative;
 				    cursor: pointer;
-				}
+				} */
 				
 				/* label 중에 for가 trigger인 항목 안의 span */
-				 label[for=trigger] span {
+				 /* label[for=trigger] span {
 				    display: block;
 				    height: 5px;
 				    background-color: white;
@@ -61,10 +61,10 @@
 				    position: absolute;
 				    transition: 0.4s;
 				    z-index: 1000;
-				}
+				} */
 				
 				/* label[for=trigger] > span의 n번째 요소 */
-				label[for=trigger] span:nth-child(1) {
+				/* label[for=trigger] span:nth-child(1) {
 				    top:0;
 				}
 				
@@ -76,7 +76,7 @@
 				    top:100%;
 				}
 				/* check시 변하는 label[for=trigger] > span의 n번째 요소  */
-				input[id=trigger]:checked + label span:nth-child(1) {
+				/* input[id=trigger]:checked + label span:nth-child(1) {
 				    top: 50%;
 				    transform: rotate(45deg);
 				}
@@ -88,9 +88,9 @@
 				input[id=trigger]:checked + label span:nth-child(3) {
 				    top: 50%;
 				    transform: rotate(-45deg);
-				}
+				}  */
 				/* 사이드바 부분 */
-				.sidebar {
+				/* .sidebar {
 				    width: 250px;
 				    height: 100vh;
 				    background-color: white;
@@ -100,18 +100,18 @@
 				    left: -250px;
 				    transition: 0.4s;
 				}
-				
+				 */
 				/* input[id=trigger]가 체크되었을 때 사이드바가 나오는 형제 인접자 */
-				input[id=trigger]:checked ~ .sidebar {
-				    left: 0;
+				/* input[id=trigger]:checked ~ .sidebar {
+				    left: 0; */
 				}
 				
 				/* check시 같이 밀려나가는 CSS 햄버거 메뉴 */
-				input[id=trigger]:checked + label[for=trigger] {
+				/* input[id=trigger]:checked + label[for=trigger] {
 				    left: 210px;
 				    transition: 0.3s;
 				}
-			}
+			} */
 			
 		</style>
 	</head>
@@ -161,8 +161,12 @@
 							
 							<p>${id } 님<br>환영합니다.</p>
 							<br>
-							<a href="infoUpdate?id=${id }">정보 수정</a><br>
-							
+							<a href="infoUpdate?id=${id }" class="a1">정보 수정</a><br>
+							<c:choose>
+								<c:when test="${admin eq true }">
+									<a href="adminPage?currentPage=1" class="a2">관리자 페이지로 이동</a>
+								</c:when>
+							</c:choose>
 						</div>
 					</c:when>
 					<c:otherwise>

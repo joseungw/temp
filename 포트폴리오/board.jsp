@@ -81,17 +81,17 @@
 				</table>
 				<div class="page">
 					<ul>
-					<c:forEach begin="1" end="${nPage }" var="i">
-					<c:choose>
-						<c:when test="${currentPage eq i }">
-							<li ><a>${i }(현재)</a></li>
-						</c:when>
-						<c:otherwise>
-							<li class="otherPage"><a href="boardmain?category=${category }&currentPage=${i }&userid=${id }"> ${i } </a></li>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				</ul>
+						<c:forEach begin="1" end="${nPage }" var="i">
+							<c:choose>
+								<c:when test="${currentPage eq i }">
+									<li ><a>${i }(현재)</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="otherPage"><a href="boardmain?category=${category }&currentPage=${i }&userid=${id }"> ${i } </a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</ul>
 				</div>
 			</div>
 		</div>
