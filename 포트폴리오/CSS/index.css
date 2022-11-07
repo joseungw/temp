@@ -64,10 +64,16 @@
 #loginbox p{
 	text-align:center;
 }
-#loginbox a{
+.a1{
 	text-decoration:none;
 	color:#0088FF;
 	margin-left: 65px;
+    border-bottom: 2px solid;
+}
+.a2{
+	text-decoration:none;
+	color:#0088FF;
+	margin-left: 20px;
     border-bottom: 2px solid;
 }
 #radius{

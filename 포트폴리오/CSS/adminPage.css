@@ -1,0 +1,115 @@
+@charset "utf-8";
+#wrap{
+	width:1000px;
+	margin:0 auto;
+	background-color:white;
+}
+#logo{
+	font-size:50px;
+	text-align:center;
+	padding:20px;
+}
+#logo a{
+	text-decoration:none;
+	color:#0088FF;
+}
+#menu{
+	background-color:#0088FF;
+	font-size:0;
+	padding:0;
+}
+#container{
+		display:none;
+}
+#list a:hover{
+	border-bottom:3px solid white;
+}
+#list{
+	display:inline-block;
+	width:200px;
+	height:60px;
+	line-height:60px;
+	text-align:center;
+}
+#list a{
+	text-decoration:none;
+	font-size:20px;
+	color:white;
+	font-weight:bold;
+}
+/* 여기까지 카테고리 상단 부분 */
+#main{
+	width:100%;
+	margin-top:25px;
+}
+table{
+	border:3px solid #0088FF;
+	width:100%;
+	margin:0 auto;
+	border-collapse:collapse;
+}
+thead th{
+	font-size:20px;
+	background-color:#0088FF;
+	color:white;
+}
+tbody tr{
+	text-align:center;
+	border-bottom:2px solid white;
+}
+tbody tr:hover{
+	border-bottom:2px solid #0088FF;
+}
+table td{
+	padding:10px;
+	margin:5px;
+}
+.post3{
+	width:140px;
+}
+.post2{
+	width:130px;
+}
+.post a{
+	color:red;
+	text-decoration:none;
+}
+.post1{
+	width:50px;
+}
+#postit{
+	background-color:white;
+	border:2px solid #0088FF;
+	padding:4px;
+	font-weight:bold;
+	float:right;
+	margin-bottom: 10px;
+}
+#postit:hover{
+	background-color:#0088FF;
+	color:white;
+	border:2px solid black;
+}
+#search:hover{
+	border:2px solid black;
+	background-color:#0088FF;
+	color:white;
+}
+/* 페이지 갯수 현재페이지 부분 */
+.page ul{
+	margin:20px;
+	text-align: center;
+	padding:0;
+}
+.page ul li{
+	display:inline-block;
+}
+.page ul li a{
+	text-decoration:none;
+}
+.otherPage{
+	width:20px;
+}
+.otherPage:hover{
+	border-bottom:2px solid #0088FF;
+}
