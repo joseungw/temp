@@ -2,6 +2,7 @@ package DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 
@@ -181,6 +182,70 @@ public class UserDAO {
 				if(conn!=null)conn.close();
 			}catch(Exception ex) {
 				ex.printStackTrace();
+			}
+		}
+	}
+	//================관리자 부분=============================
+	//회원 목록을 보기위한 기능
+	public List<User> allUser(int currentPage) {
+		List<User> list=new ArrayList<User>();
+		int start=currentPage*10-10;
+		String sql="select * from user limit ?,10";
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				User u=new User();
+				u.setNum(rs.getInt("num"));
+				u.setName(rs.getString("name"));
+				u.setPhone(rs.getString("phone"));
+				u.setId(rs.getString("id"));
+				u.setPassword(rs.getString("password"));
+				u.setNick(rs.getString("nick"));
+				u.setCity(rs.getString("city"));
+				u.setSports(rs.getString("sports"));
+				list.add(u);
+			}
+			rs.next();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return list;
+	}
+	//회원 목록에서 삭제하는 기능 구현부분
+	public void UserDelete(String num) {
+		String sql="delete from user where num=?";
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, num);
+			pstmt.executeUpdate();
+			//executeUpdate() : return Integer 변경내역이 여러줄일 경우에 사용
+		}catch(Exception e) {
+			System.out.println("회원 삭제 중 오류 : "+e);
+		}finally {
+			try {
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				ex.printStackTrace();
+				System.out.println("회원 삭제 종료 중 오류 : "+ex);
 			}
 		}
 	}
@@ -681,6 +746,31 @@ public class UserDAO {
 		}
 		return numberOfRows;
 	}
-	
+	//관리자 페이지에서 회원 목록 검색할 떄 페이지 갯수를 가져오는 동작
+	public int getUserOfRows() {
+		String sql="select count(num) from user;";
+		int numberOfRows=0;
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			rs.next();
+			numberOfRows=Integer.parseInt(rs.getString(1));
+		}catch(Exception e) {
+			System.out.println("UserDAO.getRegionOfRows 접속 중 오류 발생 : "+e);
+		}finally {
+			try {
+				if(rs!=null)rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception ex) {
+				System.out.println("UserDAO.getRegionOfRows 종료 중 오류 뱔생 : "+ex);
+			}
+		}
+		return numberOfRows;
+	}
 		
 }
