@@ -28,7 +28,6 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String id=request.getParameter("id");
 		String pw=request.getParameter("pw");
-		System.out.println("�з����� �ܷ� : "+id+","+pw);
 		UserDAO ud=UserDAO.getInstance();
 
 		result=ud.userCheak(id, pw);
@@ -46,7 +45,9 @@ public class LoginServlet extends HttpServlet {
 			sess.setAttribute("name", u.getName());
 			sess.setAttribute("password", u.getPassword());
 			sess.setAttribute("num", u.getNum());
-			sess.setAttribute("isLogin", true);
+			if(id.equals("admin11")) {
+				sess.setAttribute("admin", true);
+			}
 			request.setAttribute("u", u);
 			url="index.jsp";
 		}else if(result==0) {
