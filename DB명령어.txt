@@ -1,0 +1,146 @@
+mysql> show databases;	-	DB 목록 확인
+mysql> create database DB명;	-	DB 생성
+mysql> create database if not exists DB명;	-	DB 존재유무 확인
+mysql> drop database DB명;	-	DB 삭제
+mysql> use DB명;	-	DB사용
+mysql> create table 테이블명([filed name] [fied type],
+			   [filed name] [fied type],);	-	테이블 생성
+mysql> show tables;	-	테이블 목록 확인
+
+mysql> drop table [테이블명];     -  테이블 삭제
+
+mysql> create table tblregister2 like tblregister;		-	테이블 복사
+mysql> drop table tablename;	-	테이블 삭제
+mysql> alter table 테이블이름 modify 칼럼이름 자료형(a);		-	자료형 변경
+mysql> alter table 테이블이름 add 칼럼이름 자료형(a);		-	자료형 추가
+mysql> alter table 테이블이름 add 칼럼이름 자료형(a) [first(제일 앞에), after(~뒤에)] [추가할 자료형 이름]	- 자료형추가
+mysql> alter table 테이블이름 change [칼럼] [변경할칼럼이름] 자료형(a);
+mysql> alter table 테이블이름 drop 칼럼;	-	칼럼삭제
+mysql> select * from 테이블이름	-	모든 필드값 확인
+mysql> select 필드이름,필드이름 from 테이블 이름	-	필드이름 확인
+mysql> insert into 테이블이름  (필드입력,필드입력)
+			   values
+			   ('필드타입입력','필드타입입력')	-	데이터 등록
+mysql> update 테이블이름 set 필드='필드값', 필드='필드값' where 필드='필드값';	- where 조건이 맞는 데이터 변경
+mysql> delete from tblregister where 필드='필드값'; 	-	데이터 삭제|
+
+
+mysql> create table sungjuck(
+    -> num int auto_increment primary key,
+    -> name varchar(20),
+    -> kor int,				- 	int auto_increment (자동으로 증가)
+    -> eng int,
+    -> math int,				-	primary key(기본적으로 not null)
+    -> total int,
+    -> evg float);
+
+
+update sungjuck set note='수' where evg >=90 and evg<=100;
+update sungjuck set note='가' where evg >=50 and evg<60;
+
+update sungjuck set note='힘내' order by evg asc limit 2;
+update sungjuck set note='힘내' where note='특이사항 없음';
+
+update sungjuck set note='잘했어' order by evg desc limit 2;
+
+
+insert into tb(number, sales,month) values ('A103',17,5);
+
+
+drop table tb;
+
+create table tb(
+number varchar(5),
+sales int,
+month int);
+
+insert into tb(number, sales,month) values ('A107',87,6);
+create table tb_A103 select * from tb where number like 'A103';
+
+insert into tb1k(number, name, age) values ('A105','박문수',35);
+
+create table register(
+num int(11) auto_increment primary key,
+id varchar(11),
+pass varchar(11),
+name varchar(11),
+email varchar(11),
+phone varchar(11));
+
+============================where문============================
+select * from tb where month not in(4);		-month안에 4가 없다 (없는거 보여주기)
+
+mysql> select * from tb where month in(4);		-month 안에 4가 있다
+
+mysql> select * from tb where month<>4;		-month에 4와 다른것들 보여주기
+
+mysql> select * from tb where  month between 5 and 6; -month에 5와6 사이를 보여주기
+				not 추가 가능!!
+
+=============================와일드 카드===========================
+%시	서울시,인천시,홍시,시    	퍼센트는 '시'가 어디에 있어도 '시'가 들어간 조건다 보여줌
+서%	서울시,서쪽, 서
+경_도 	경기도, 경상도	 	언더바는 글자수의 영향 받음	( 봉준호 -> '__호')
+%산%	부산시, 산 , 산수
+
+mysql> select number, avg(sales) as '평균' from tb group by number;
++--------+----------+
+| number | 평균     |
++--------+----------+
+| A103   |  43.3333 |
+| A102   | 129.5000 |				number로 평균 구하기
+| A104   | 137.0000 |
+| A101   | 242.0000 |
+| A107   |  87.0000 |
++--------+----------+
+
+mysql> select number, avg(sales) as '평균' from tb group by number order by avg(sales) desc;
++--------+----------+
+| number | 평균     |
++--------+----------+
+| A101   | 242.0000 |
+| A104   | 137.0000 |			그룹평균을 구하고 낮은순으로 내림차순으로 정렬하기
+| A102   | 129.5000 |
+| A107   |  87.0000 |
+| A103   |  43.3333 |
++--------+----------+
+
+mysql> select number,avg(sales) as '평균' from tb group by number having number='A101';
++--------+----------+
+| number | 평균     |
++--------+----------+		A101그룹 평균만 가져오기;
+| A101   | 242.0000 |
++--------+----------+
+
+
+mysql> select number,avg(sales) as '평균' from tb group by number having 평균>100 order by number;
++--------+----------+
+| number | 평균     |
++--------+----------+
+| A101   | 242.0000 |		그룹 평균 100 이상인 number만 가져오기;
+| A102   | 129.5000 |
+| A104   | 137.0000 |
++--------+----------+
+
+
+mysql> select number, count(*) from tb group by number;
++--------+----------+
+| number | count(*) |
++--------+----------+
+| A103   |        3 |
+| A102   |        2 |			그룹 number를 카운트해서 그룹으로 묶기
+| A104   |        2 |
+| A101   |        2 |
+| A107   |        1 |
++--------+----------+
+
+mysql> select number, count(*) from tb group by number;
++--------+----------+
+| number | count(*) |
++--------+----------+
+| A103   |        3 |
+| A102   |        2 |
+| A104   |        2 |			number가 똑같은 그룹을 만들어 카운트하기
+| A101   |        2 |
+| A107   |        1 |
++--------+----------+
