@@ -45,6 +45,9 @@
 	display:inline-block;
 	height:318px;
 }
+#loginbox2{
+	display:none;
+}
 #loginbox input{
 	width:120px;
 	height:40px;
